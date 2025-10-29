@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/screens/login.dart';
 import 'package:quiz_app/screens/signup.dart';
+import 'package:quiz_app/screens/splashscreen.dart';
 
 class AppRoutes {
   // Route names
+  static const String splashScreen = '/splashscreen';
   static const String login = '/';
   static const String signIn = '/sign_in';
   static const String signUp = '/sign_up';
@@ -13,12 +15,13 @@ class AppRoutes {
 
   // Routes map
   static Map<String, WidgetBuilder> routes = {
+    splashScreen: (context) => const SplashScreen(),
     login: (context) => const LoginPage(),
     signIn: (context) => const LoginPage(),
     signUp: (context) => const SignUpPage(),
-    // home: (context) => const HomePage(), // TODO: Create HomePage
-    // forgotPassword: (context) => const ForgotPasswordPage(), // TODO: Create ForgotPasswordPage
-    // resetPassword: (context) => const ResetPasswordPage(), // TODO: Create ResetPasswordPage
+    // home: (context) => const HomePage(),
+    // forgotPassword: (context) => const ForgotPasswordPage(),
+    // resetPassword: (context) => const ResetPasswordPage(),
   };
 
   // Navigate to route

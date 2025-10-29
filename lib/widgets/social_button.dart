@@ -23,13 +23,13 @@ class SocialButton extends StatelessWidget {
         label: Text(
           text,
           style: const TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontSize: 15,
           ),
         ),
         style: OutlinedButton.styleFrom(
-          backgroundColor: const Color(0xFF2a2a3e),
-          side: const BorderSide(color: Colors.white12),
+          backgroundColor: const Color(0xFFFFFF),
+          side: const BorderSide(color: Colors.black26),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),

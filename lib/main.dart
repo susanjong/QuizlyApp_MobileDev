@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/routes/app_routes.dart';
-import 'package:quiz_app/screens/login.dart';
 
 void main() {
-  runApp(const QuizlyApp());
+  runApp(const MyApp());
 }
 
-class QuizlyApp extends StatelessWidget {
-  const QuizlyApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Quizly',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: const Color(0xFF1a1a2e),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.login,
+      theme: ThemeData(
+        primarySwatch: Colors.pink,
+        useMaterial3: true,
+      ),
+      initialRoute: AppRoutes.splashScreen, // Mulai dari splash screen
       routes: AppRoutes.routes,
     );
   }
