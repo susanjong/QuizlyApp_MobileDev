@@ -24,14 +24,14 @@ class ThemeProvider extends ChangeNotifier {
   // Getter untuk warna background gradient (untuk GradientBackground)
   List<Color> get gradientColors => _isDarkMode
       ? [
-    const Color(0xFF1A1A2E),
-    const Color(0xFF16213E),
-    const Color(0xFF0F3460),
-  ]
+          const Color(0xFF1A1A2E),
+          const Color(0xFF16213E),
+          const Color(0xFF0F3460),
+        ]
       : [
-    const Color(0xFFFFBBBE), // Warna asli Anda
-    const Color(0xFFFDF8E8), // Warna asli Anda
-  ];
+          const Color(0xFFFFBBBE), // Warna asli Anda
+          const Color(0xFFFDF8E8), // Warna asli Anda
+        ];
 
   // Getter untuk warna text
   Color get primaryTextColor => _isDarkMode ? Colors.white : Colors.black;
@@ -40,24 +40,76 @@ class ThemeProvider extends ChangeNotifier {
       _isDarkMode ? Colors.white70 : Colors.black54;
 
   // Getter untuk background input field
-  Color get inputBackgroundColor =>
-      _isDarkMode ? Colors.white.withOpacity(0.1) : Colors.white.withOpacity(0.5);
+  Color get inputBackgroundColor => _isDarkMode
+      ? Colors.white.withOpacity(0.1)
+      : Colors.white.withOpacity(0.5);
 
   // Getter untuk background tab
-  Color get tabBackgroundColor =>
-      _isDarkMode ? Colors.white.withOpacity(0.1) : Colors.white.withOpacity(0.7);
+  Color get tabBackgroundColor => _isDarkMode
+      ? Colors.white.withOpacity(0.1)
+      : Colors.white.withOpacity(0.7);
+
+    Color get dayIndicatorInactiveColor => _isDarkMode 
+      ? Colors.white.withOpacity(0.1)
+      : Colors.black.withOpacity(0.05);
 
   // Getter untuk checkbox
-  Color get checkboxColor =>
-      _isDarkMode ? Colors.white.withOpacity(0.2) : Colors.white.withOpacity(0.5);
+  Color get checkboxColor => _isDarkMode
+      ? Colors.white.withOpacity(0.2)
+      : Colors.white.withOpacity(0.5);
 
   // Getter untuk divider
-  Color get dividerColor =>
-      _isDarkMode ? Colors.white24 : Colors.black12;
+  Color get dividerColor => _isDarkMode ? Colors.white24 : Colors.black12;
 
   // Getter untuk hint text
-  Color get hintTextColor =>
-      _isDarkMode ? Colors.white.withOpacity(0.4) : Colors.black.withOpacity(0.4);
+  Color get hintTextColor => _isDarkMode
+      ? Colors.white.withOpacity(0.4)
+      : Colors.black.withOpacity(0.4);
+
+  // Getter untuk background halaman
+  Color get backgroundColor =>
+      _isDarkMode ? const Color(0xFF121212) : const Color(0xFFF5F5F5);
+
+  // Getter untuk background kartu
+  Color get cardColor =>
+      _isDarkMode ? const Color(0xFF1E1E1E) : Colors.white;
+
+  // Getter untuk background progress bar
+  Color get progressBarBackground =>
+      _isDarkMode ? Colors.white12 : Colors.black12;
+
+  // Metode untuk mendapatkan bayangan kartu
+  List<BoxShadow> getCardShadow() => _isDarkMode
+      ? [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.5),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ]
+      : [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ];
+  // Metode untuk mendapatkan bayangan bottom navigation
+  List<BoxShadow> getBottomNavShadow() => _isDarkMode
+      ? [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.4),
+            blurRadius: 12,
+            offset: const Offset(0, -4),
+          ),
+        ]
+      : [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.25),
+            blurRadius: 12,
+            offset: const Offset(0, -4),
+          ),
+        ];
 }
 
 // Widget Toggle untuk Dark Mode - Style 1: Button with Icon and Text

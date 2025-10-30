@@ -54,10 +54,11 @@ class _SignUpPageState extends State<SignUpPage> {
       password: _passwordController.text.isEmpty ? '123456' : _passwordController.text,
     );
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const HomePage()),
-    );
+    //Navigator.pushReplacement( context, MaterialPageRoute(builder: (context)
+    // => const HomePage()),
+    // );
+
+    AppRoutes.navigateTo(context, AppRoutes.home);
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Account created successfully!')),
@@ -177,13 +178,8 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           ],
         ),
-        // Dark Mode Toggle - Pilih salah satu style
-        DarkModeToggle(themeProvider: _themeProvider),
 
-        // Alternative styles (uncomment untuk pakai):
-        // DarkModeSwitchToggle(themeProvider: _themeProvider),
-        // DarkModeIconToggle(themeProvider: _themeProvider),
-        // DarkModeAnimatedToggle(themeProvider: _themeProvider),
+        DarkModeToggle(themeProvider: _themeProvider),
       ],
     );
   }

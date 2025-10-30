@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/screens/login.dart';
 import 'package:quiz_app/screens/signup.dart';
 import 'package:quiz_app/screens/splashscreen.dart';
+import 'package:quiz_app/screens/homepage.dart';
 
 class AppRoutes {
   // Route names
@@ -19,7 +20,7 @@ class AppRoutes {
     login: (context) => const LoginPage(),
     signIn: (context) => const LoginPage(),
     signUp: (context) => const SignUpPage(),
-    // home: (context) => const HomePage(),
+    home: (context) => const HomePage(),
     // forgotPassword: (context) => const ForgotPasswordPage(),
     // resetPassword: (context) => const ResetPasswordPage(),
   };

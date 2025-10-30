@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/widgets/social_button.dart';
 import 'package:quiz_app/widgets/darkmode_theme.dart';
 import 'package:quiz_app/routes/app_routes.dart';
-import 'package:quiz_app/screens/homepage.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -30,10 +30,12 @@ class _LoginPageState extends State<LoginPage> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const HomePage()),
-    );
+    // Navigator.pushReplacement(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => const HomePage()),
+    // );
+
+    AppRoutes.navigateTo(context, AppRoutes.home);
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Login successful!')),
