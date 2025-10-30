@@ -3,6 +3,8 @@ import 'package:quiz_app/screens/login.dart';
 import 'package:quiz_app/screens/signup.dart';
 import 'package:quiz_app/screens/splashscreen.dart';
 import 'package:quiz_app/screens/homepage.dart';
+import 'package:quiz_app/screens/quiz_screen.dart';
+import 'package:quiz_app/models/question_model.dart';
 
 class AppRoutes {
   // Route names
@@ -11,6 +13,7 @@ class AppRoutes {
   static const String signIn = '/sign_in';
   static const String signUp = '/sign_up';
   static const String home = '/home';
+  static const String quiz = '/quiz';
   static const String forgotPassword = '/forgot_password';
   static const String resetPassword = '/reset_password';
 
@@ -38,6 +41,23 @@ class AppRoutes {
   // Navigate and remove all previous routes
   static void navigateAndRemoveUntil(BuildContext context, String routeName) {
     Navigator.pushNamedAndRemoveUntil(context, routeName, (route) => false);
+  }
+
+  // Navigate to quiz with data
+  static void navigateToQuiz(
+      BuildContext context, {
+        required String quizTitle,
+        required List<Question> questions,
+      }) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => QuizScreen(
+          quizTitle: quizTitle,
+          questions: questions,
+        ),
+      ),
+    );
   }
 
   // Go back

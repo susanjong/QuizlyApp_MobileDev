@@ -7,6 +7,8 @@ import 'package:quiz_app/widgets/featured_challenge_card.dart';
 import 'package:quiz_app/widgets/navbar_widget.dart';
 import 'package:quiz_app/models/education_level.dart';
 import 'package:quiz_app/models/programming_challenge.dart';
+import 'package:quiz_app/routes/app_routes.dart';
+import 'package:quiz_app/data/sample_questions.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -47,9 +49,7 @@ class _HomePageState extends State<HomePage> {
                     _buildWeeklyProgress(),
                     const SizedBox(height: 20),
                     FeaturedChallengeCard(
-                      onPressed: () {
-                        //_showSnackBar('Memulai Programming Quest...');
-                      },
+                      onPressed: _startProgrammingQuest,
                     ),
                     const SizedBox(height: 24),
                     _buildSectionHeader('Pilih Jenjang'),
@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildStreakButton() {
     return GestureDetector(
       onTap: () {
-       // _showSnackBar('Streak kamu: 7 hari! 🔥');
+        // _showSnackBar('Streak kamu: 7 hari! 🔥');
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -194,7 +194,7 @@ class _HomePageState extends State<HomePage> {
         ),
         TextButton(
           onPressed: () {
-           // _showSnackBar('Menampilkan semua $title...');
+            // _showSnackBar('Menampilkan semua $title...');
           },
           style: TextButton.styleFrom(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -230,9 +230,7 @@ class _HomePageState extends State<HomePage> {
         return CategoryCard(
           educationLevel: level,
           onTap: () {
-            /*_showSnackBar(
-              'Membuka kategori ${level.title} - ${level.quizCount} kuis tersedia',
-            );*/
+            _startQuizByCategory(level.title);
           },
         );
       },
@@ -255,6 +253,24 @@ class _HomePageState extends State<HomePage> {
           ),
         );
       }).toList(),
+    );
+  }
+
+// Function untuk start Programming Quest
+  void _startProgrammingQuest() {
+    AppRoutes.navigateToQuiz(
+      context,
+      quizTitle: 'Programming Quest - Dart Challenge',
+      questions: SampleQuestions.getDartQuestions(),
+    );
+  }
+
+// Function untuk start quiz by category
+  void _startQuizByCategory(String category) {
+    AppRoutes.navigateToQuiz(
+      context,
+      quizTitle: '$category Quiz',
+      questions: SampleQuestions.getQuestionsByCategory(category),
     );
   }
 
