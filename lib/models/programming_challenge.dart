@@ -25,23 +25,23 @@ class ProgrammingChallenge {
         level: 'Beginner',
         questionCount: '24 Soal',
         progress: 0.6,
-        accentColor: const Color(0xFDF8E8),
-        icon: Icons.javascript,
+        accentColor: const Color(0xFFFDD835), // Kuning cerah
+        icon: Icons.code,
       ),
       ProgrammingChallenge(
         title: 'Python Data Structures',
         level: 'Intermediate',
         questionCount: '18 Soal',
         progress: 0.4,
-        accentColor: const Color(0xFFCDFF00),
-        icon: Icons.code_off,
+        accentColor: const Color(0xFF4CAF50), // Hijau untuk Python
+        icon: Icons.terminal,
       ),
       ProgrammingChallenge(
         title: 'React Components',
         level: 'Advanced',
         questionCount: '32 Soal',
         progress: 0.2,
-        accentColor: const Color(0xFFFF1493),
+        accentColor: const Color(0xFF61DAFB), // Biru cyan untuk React
         icon: Icons.web,
       ),
     ];

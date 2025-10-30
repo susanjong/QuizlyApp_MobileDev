@@ -2,55 +2,37 @@ import 'package:flutter/material.dart';
 
 class EducationLevel {
   final String title;
-  final String subtitle;
   final IconData icon;
-  final Color startColor;
-  final Color endColor;
-  final String quizCount;
+  final Color backgroundColor;
 
   EducationLevel({
     required this.title,
-    required this.subtitle,
     required this.icon,
-    required this.startColor,
-    required this.endColor,
-    required this.quizCount,
+    required this.backgroundColor,
   });
 
   // Static list untuk data default
   static List<EducationLevel> getDefaultLevels() {
     return [
       EducationLevel(
-        title: 'SD',
-        subtitle: 'Dasar',
-        icon: Icons.school,
-        startColor: const Color(0xFFFFBBBE),
-        endColor: const Color(0xFFFFBBBE),
-        quizCount: '120 Quiz',
+        title: 'Space',
+        icon: Icons.public,
+        backgroundColor: const Color(0xFFF5DDA9),
       ),
       EducationLevel(
-        title: 'SMP',
-        subtitle: 'Menengah',
-        icon: Icons.menu_book,
-        startColor: const Color(0xFFCBE3B3),
-        endColor: const Color(0xFFCBE3B3),
-        quizCount: '98 Quiz',
-      ),
-      EducationLevel(
-        title: 'SMA',
-        subtitle: 'Lanjutan',
+        title: 'History',
         icon: Icons.auto_stories,
-        startColor: const Color(0xFFFFBBBE),
-        endColor: const Color(0xFFFFBBBE),
-        quizCount: '156 Quiz',
+        backgroundColor: const Color(0xFFD4C5E2),
       ),
       EducationLevel(
-        title: 'Kuliah',
-        subtitle: 'Advanced',
-        icon: Icons.psychology,
-        startColor: const Color(0xFFCBE3B3),
-        endColor: const Color(0xFFCBE3B3),
-        quizCount: '203 Quiz',
+        title: 'Music',
+        icon: Icons.music_note,
+        backgroundColor: const Color(0xFFFFCCB3),
+      ),
+      EducationLevel(
+        title: 'Education',
+        icon: Icons.school,
+        backgroundColor: const Color(0xFFB8E6D5),
       ),
     ];
   }

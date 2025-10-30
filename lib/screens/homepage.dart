@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(height: 16),
                     _buildEducationLevelGrid(),
                     const SizedBox(height: 24),
-                    _buildSectionHeader('Programming Challenges'),
+                    _buildSectionHeader('Recent Activity'),
                     const SizedBox(height: 16),
                     _buildProgrammingChallengesList(),
                     const SizedBox(height: 100),
