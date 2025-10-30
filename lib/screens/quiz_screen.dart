@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/models/question_model.dart';
-import 'package:quiz_app/widgets/quiz_header.dart';
-import 'package:quiz_app/widgets/question_number_bar.dart';
-import 'package:quiz_app/widgets/question_card.dart';
-import 'package:quiz_app/widgets/answer_option_list.dart';
-import 'package:quiz_app/widgets/quiz_bottom_bar.dart';
-import 'package:quiz_app/widgets/doubt_checkbox.dart';
+import 'package:quiz_app/widgets/quiz/quiz_header.dart';
+import 'package:quiz_app/widgets/quiz/question_number_bar.dart';
+import 'package:quiz_app/widgets/quiz/question_card.dart';
+import 'package:quiz_app/widgets/quiz/answer_option_list.dart';
+import 'package:quiz_app/widgets/quiz/quiz_bottom_bar.dart';
+import 'package:quiz_app/widgets/quiz/doubt_checkbox.dart';
 
 class QuizScreen extends StatefulWidget {
   final String quizTitle;
