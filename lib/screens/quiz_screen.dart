@@ -6,6 +6,7 @@ import 'package:quiz_app/widgets/quiz/question_card.dart';
 import 'package:quiz_app/widgets/quiz/answer_option_list.dart';
 import 'package:quiz_app/widgets/quiz/quiz_bottom_bar.dart';
 import 'package:quiz_app/widgets/quiz/doubt_checkbox.dart';
+import 'package:quiz_app/widgets/darkmode_theme.dart';
 
 class QuizScreen extends StatefulWidget {
   final String quizTitle;
@@ -26,6 +27,7 @@ class _QuizScreenState extends State<QuizScreen> {
   final Map<int, String> _userAnswers = {};
   final Set<int> _answeredQuestions = {};
   final Set<int> _doubtfulQuestions = {};
+  final ThemeProvider _themeProvider = ThemeProvider();
 
   Question get _currentQuestion => widget.questions[_currentQuestionIndex];
   int get _currentQuestionNumber => _currentQuestionIndex + 1;
@@ -75,12 +77,16 @@ class _QuizScreenState extends State<QuizScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
+        backgroundColor: _themeProvider.cardColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        title: const Text(
+        title: Text(
           'Kumpulkan Quiz?',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: _themeProvider.primaryTextColor,
+          ),
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -88,6 +94,7 @@ class _QuizScreenState extends State<QuizScreen> {
           children: [
             Text(
               'Kamu telah menjawab ${_answeredQuestions.length} dari ${widget.questions.length} soal.',
+              style: TextStyle(color: _themeProvider.primaryTextColor),
             ),
             if (unansweredCount > 0) ...[
               const SizedBox(height: 8),
@@ -114,19 +121,18 @@ class _QuizScreenState extends State<QuizScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text(
+            child: Text(
               'Batal',
-              style: TextStyle(color: Colors.grey),
+              style: TextStyle(color: _themeProvider.secondaryTextColor),
             ),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
-              Navigator.pop(context); // Kembali ke home
-              // TODO: Navigate to result screen
+              Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFFF6B35),
+              backgroundColor: const Color(0xFFFF84A1),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -146,24 +152,29 @@ class _QuizScreenState extends State<QuizScreen> {
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
+        backgroundColor: _themeProvider.cardColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        title: const Row(
+        title: Row(
           children: [
-            Icon(Icons.access_time, color: Colors.red),
-            SizedBox(width: 8),
-            Text('Waktu Habis!'),
+            const Icon(Icons.access_time, color: Colors.red),
+            const SizedBox(width: 8),
+            Text(
+              'Waktu Habis!',
+              style: TextStyle(color: _themeProvider.primaryTextColor),
+            ),
           ],
         ),
-        content: const Text(
+        content: Text(
           'Waktu quiz telah habis. Quiz akan dikumpulkan secara otomatis.',
+          style: TextStyle(color: _themeProvider.primaryTextColor),
         ),
         actions: [
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
-              Navigator.pop(context); // Kembali ke home
+              Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFFF6B35),
@@ -182,11 +193,18 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   void _showSubmitButton() {
-     showDialog(
+    showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Tombol Jawaban'),
-        content: const Text('Klik tombol di atas untuk melihat semua soal'),
+        backgroundColor: _themeProvider.cardColor,
+        title: Text(
+          'Tombol Jawaban',
+          style: TextStyle(color: _themeProvider.primaryTextColor),
+        ),
+        content: Text(
+          'Klik tombol di atas untuk melihat semua soal',
+          style: TextStyle(color: _themeProvider.primaryTextColor),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -199,107 +217,123 @@ class _QuizScreenState extends State<QuizScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade100,
-      body: Column(
-        children: [
-          QuizHeader(
-            title: widget.quizTitle,
-            timeInMinutes: 50,
-            onTimeUp: _onTimeUp,
-            onBackPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  title: const Text('Keluar Quiz?'),
-                  content: const Text(
-                    'Progres kamu akan hilang jika keluar sekarang.',
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text('Batal'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
+    return ListenableBuilder(
+      listenable: _themeProvider,
+      builder: (context, child) {
+        return Scaffold(
+          backgroundColor: _themeProvider.backgroundColor,
+          body: Column(
+            children: [
+              QuizHeader(
+                title: widget.quizTitle,
+                timeInMinutes: 50,
+                onTimeUp: _onTimeUp,
+                onBackPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      backgroundColor: _themeProvider.cardColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
                       ),
-                      child: const Text(
-                        'Keluar',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-          QuestionNumberBar(
-            totalQuestions: widget.questions.length,
-            currentQuestion: _currentQuestionNumber,
-            answeredQuestions: _answeredQuestions,
-            onQuestionTap: _goToQuestion,
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  QuestionCard(
-                    question: _currentQuestion,
-                    questionNumber: _currentQuestionNumber,
-                    totalQuestions: widget.questions.length,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: AnswerOptionList(
-                      answers: _currentQuestion.answers,
-                      selectedAnswerId: _userAnswers[_currentQuestionNumber],
-                      onAnswerSelected: _onAnswerSelected,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      children: [
-                        DoubtCheckbox(
-                          isChecked: _doubtfulQuestions.contains(_currentQuestionNumber),
-                          onChanged: _onDoubtChanged,
+                      title: Text(
+                        'Keluar Quiz?',
+                        style: TextStyle(
+                          color: _themeProvider.primaryTextColor,
                         ),
-                        const Spacer(),
-                        TextButton.icon(
-                          onPressed: _showSubmitButton,
-                          icon: const Icon(Icons.grid_view, size: 20),
-                          label: const Text('Jawaban'),
-                          style: TextButton.styleFrom(
-                            foregroundColor: Colors.grey.shade700,
+                      ),
+                      content: Text(
+                        'Progres kamu akan hilang jika keluar sekarang.',
+                        style: TextStyle(
+                          color: _themeProvider.primaryTextColor,
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('Batal'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                          ),
+                          child: const Text(
+                            'Keluar',
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(height: 100),
-                ],
+                  );
+                },
               ),
-            ),
+              QuestionNumberBar(
+                totalQuestions: widget.questions.length,
+                currentQuestion: _currentQuestionNumber,
+                answeredQuestions: _answeredQuestions,
+                doubtfulQuestions: _doubtfulQuestions,
+                onQuestionTap: _goToQuestion,
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      QuestionCard(
+                        question: _currentQuestion,
+                        questionNumber: _currentQuestionNumber,
+                        totalQuestions: widget.questions.length,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: AnswerOptionList(
+                          answers: _currentQuestion.answers,
+                          selectedAnswerId: _userAnswers[_currentQuestionNumber],
+                          onAnswerSelected: _onAnswerSelected,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Row(
+                          children: [
+                            DoubtCheckbox(
+                              isChecked: _doubtfulQuestions
+                                  .contains(_currentQuestionNumber),
+                              onChanged: _onDoubtChanged,
+                            ),
+                            const Spacer(),
+                            TextButton.icon(
+                              onPressed: _showSubmitButton,
+                              icon: const Icon(Icons.grid_view, size: 20),
+                              label: const Text('Jawaban'),
+                              style: TextButton.styleFrom(
+                                foregroundColor: _themeProvider.secondaryTextColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 100),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-      bottomNavigationBar: QuizBottomBar(
-        isFirstQuestion: _currentQuestionIndex == 0,
-        isLastQuestion: _currentQuestionIndex == widget.questions.length - 1,
-        hasAnswer: _userAnswers.containsKey(_currentQuestionNumber),
-        onPrevious: _previousQuestion,
-        onNext: _nextQuestion,
-        onSubmit: _submitQuiz,
-      ),
+          bottomNavigationBar: QuizBottomBar(
+            isFirstQuestion: _currentQuestionIndex == 0,
+            isLastQuestion: _currentQuestionIndex == widget.questions.length - 1,
+            hasAnswer: _userAnswers.containsKey(_currentQuestionNumber),
+            onPrevious: _previousQuestion,
+            onNext: _nextQuestion,
+            onSubmit: _submitQuiz,
+          ),
+        );
+      },
     );
   }
 }

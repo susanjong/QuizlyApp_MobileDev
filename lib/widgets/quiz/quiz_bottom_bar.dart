@@ -63,7 +63,7 @@ class QuizBottomBar extends StatelessWidget {
                 onPressed: isLastQuestion ? onSubmit : onNext,
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  backgroundColor: const Color(0xFFFF6B35),
+                  backgroundColor: const Color(0xFFFF84A1),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
