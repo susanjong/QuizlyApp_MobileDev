@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// Widget background gradient agar konsisten di seluruh aplikasi
+// Widget background gradient di menu login dan sign up
 class GradientBackground extends StatelessWidget {
   final Widget child;
   final List<Color>? colors;

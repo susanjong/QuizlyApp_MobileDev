@@ -260,7 +260,7 @@ class _LoginPageState extends State<LoginPage> {
           decoration: InputDecoration(
             hintText: 'Lottebecketi@gmail.com',
             hintStyle: TextStyle(
-              color: _themeProvider.primaryTextColor.withOpacity(0.4),
+              color: _themeProvider.primaryTextColor.withValues(alpha: 0.4),
             ),
             filled: true,
             fillColor: _themeProvider.inputBackgroundColor,
@@ -294,7 +294,7 @@ class _LoginPageState extends State<LoginPage> {
           decoration: InputDecoration(
             hintText: '••••••••',
             hintStyle: TextStyle(
-              color: _themeProvider.primaryTextColor.withOpacity(0.4),
+              color: _themeProvider.primaryTextColor.withValues(alpha: 0.4),
             ),
             filled: true,
             fillColor: _themeProvider.inputBackgroundColor,

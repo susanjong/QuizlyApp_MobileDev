@@ -142,7 +142,7 @@ class _SplashScreenState extends State<SplashScreen>
                                     borderRadius: BorderRadius.circular(16),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
+                                        color: Colors.black.withValues(alpha: 0.1),
                                         blurRadius: 20,
                                         offset: const Offset(0, 10),
                                       ),
@@ -174,6 +174,7 @@ class _SplashScreenState extends State<SplashScreen>
                                     ),
                                   ),
                                 ),
+
                                 const SizedBox(width: 20),
                                 // Logo Text with slide animation
                                 SlideTransition(
@@ -232,7 +233,7 @@ class _SplashScreenState extends State<SplashScreen>
                             child: CircularProgressIndicator(
                               strokeWidth: 3,
                               valueColor: AlwaysStoppedAnimation<Color>(
-                                const Color(0xFFF5B6C8).withOpacity(0.5),
+                                const Color(0xFFF5B6C8).withValues(alpha: 0.5),
                               ),
                             ),
                           ),

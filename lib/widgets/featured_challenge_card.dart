@@ -21,7 +21,7 @@ class FeaturedChallengeCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xDFD0EC73).withOpacity(0.3),
+            color: const Color(0xDFD0EC73).withValues(alpha: 0.3),
             blurRadius: 15,
             offset: const Offset(0, 6),
           ),
@@ -32,7 +32,7 @@ class FeaturedChallengeCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.3),
+              color: Colors.white.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(14),
             ),
             child: const Icon(

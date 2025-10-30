@@ -131,7 +131,7 @@ class _HomePageState extends State<HomePage> {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFFFF1493).withOpacity(0.3),
+              color: const Color(0xFFFF1493).withValues(alpha: 0.3),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -265,16 +265,16 @@ class _HomePageState extends State<HomePage> {
       _currentIndex = index;
     });
 
-    /* final messages = [
-      'Menu Home',
-      'Menu Progress',
-      'Menu Prestasi',
-      'Menu Profil',
-    ]; 
-
-    if (index < messages.length) {
-      _showSnackBar(messages[index]);
-    } */
+    //  final messages = [
+    //   'Menu Home',
+    //   'Menu Progress',
+    //   'Menu Prestasi',
+    //   'Menu Profil',
+    // ];
+    //
+    // if (index < messages.length) {
+    //   _showSnackBar(messages[index]);
+    // }
   }
 
   void _showSnackBar(String message) {

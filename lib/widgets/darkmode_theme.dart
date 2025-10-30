@@ -41,30 +41,30 @@ class ThemeProvider extends ChangeNotifier {
 
   // Getter untuk background input field
   Color get inputBackgroundColor => _isDarkMode
-      ? Colors.white.withOpacity(0.1)
-      : Colors.white.withOpacity(0.5);
+      ? Colors.white.withValues(alpha: 0.1)
+      : Colors.white.withValues(alpha: 0.5);
 
   // Getter untuk background tab
   Color get tabBackgroundColor => _isDarkMode
-      ? Colors.white.withOpacity(0.1)
-      : Colors.white.withOpacity(0.7);
+      ? Colors.white.withValues(alpha: 0.1)
+      : Colors.white.withValues(alpha: 0.7);
 
     Color get dayIndicatorInactiveColor => _isDarkMode 
-      ? Colors.white.withOpacity(0.1)
-      : Colors.black.withOpacity(0.05);
+      ? Colors.white.withValues(alpha: 0.1)
+      : Colors.black.withValues(alpha:0.05);
 
   // Getter untuk checkbox
   Color get checkboxColor => _isDarkMode
-      ? Colors.white.withOpacity(0.2)
-      : Colors.white.withOpacity(0.5);
+      ? Colors.white.withValues(alpha: 0.2)
+      : Colors.white.withValues(alpha: 0.5);
 
   // Getter untuk divider
   Color get dividerColor => _isDarkMode ? Colors.white24 : Colors.black12;
 
   // Getter untuk hint text
   Color get hintTextColor => _isDarkMode
-      ? Colors.white.withOpacity(0.4)
-      : Colors.black.withOpacity(0.4);
+      ? Colors.white.withValues(alpha: 0.4)
+      : Colors.black.withValues(alpha: 0.4);
 
   // Getter untuk background halaman
   Color get backgroundColor =>
@@ -82,14 +82,14 @@ class ThemeProvider extends ChangeNotifier {
   List<BoxShadow> getCardShadow() => _isDarkMode
       ? [
           BoxShadow(
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black.withValues(alpha: 0.5),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
         ]
       : [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
+            color: Colors.grey.withValues(alpha: 0.2),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -98,14 +98,14 @@ class ThemeProvider extends ChangeNotifier {
   List<BoxShadow> getBottomNavShadow() => _isDarkMode
       ? [
           BoxShadow(
-            color: Colors.black.withOpacity(0.4),
+            color: Colors.black.withValues(alpha: 0.4),
             blurRadius: 12,
             offset: const Offset(0, -4),
           ),
         ]
       : [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.25),
+            color: Colors.grey.withValues(alpha: 0.25),
             blurRadius: 12,
             offset: const Offset(0, -4),
           ),
@@ -131,8 +131,8 @@ class DarkModeToggle extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: themeProvider.isDarkMode
-              ? Colors.white.withOpacity(0.1)
-              : Colors.black.withOpacity(0.05),
+              ? Colors.white.withValues(alpha: 0.1)
+              : Colors.black.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
@@ -174,8 +174,8 @@ class DarkModeSwitchToggle extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: themeProvider.isDarkMode
-            ? Colors.white.withOpacity(0.1)
-            : Colors.black.withOpacity(0.05),
+            ? Colors.white.withValues(alpha: 0.1)
+            : Colors.black.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(25),
       ),
       child: Row(
@@ -183,7 +183,7 @@ class DarkModeSwitchToggle extends StatelessWidget {
         children: [
           Icon(
             Icons.wb_sunny,
-            color: themeProvider.primaryTextColor.withOpacity(0.7),
+            color: themeProvider.primaryTextColor.withValues(alpha: 0.7),
             size: 18,
           ),
           const SizedBox(width: 4),
@@ -193,15 +193,15 @@ class DarkModeSwitchToggle extends StatelessWidget {
               themeProvider.toggleTheme();
             },
             activeColor: const Color(0xFF4169E1),
-            activeTrackColor: const Color(0xFF4169E1).withOpacity(0.5),
+            activeTrackColor: const Color(0xFF4169E1).withValues(alpha: 0.5),
             inactiveThumbColor: Colors.orange,
-            inactiveTrackColor: Colors.orange.withOpacity(0.5),
+            inactiveTrackColor: Colors.orange.withValues(alpha: 0.5),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
           const SizedBox(width: 4),
           Icon(
             Icons.nightlight_round,
-            color: themeProvider.primaryTextColor.withOpacity(0.7),
+            color: themeProvider.primaryTextColor.withValues(alpha: 0.7),
             size: 18,
           ),
         ],
@@ -210,7 +210,7 @@ class DarkModeSwitchToggle extends StatelessWidget {
   }
 }
 
-// Style 3: Icon Only Toggle
+// Icon Only Toggle
 class DarkModeIconToggle extends StatelessWidget {
   final ThemeProvider themeProvider;
 
@@ -224,8 +224,8 @@ class DarkModeIconToggle extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: themeProvider.isDarkMode
-            ? Colors.white.withOpacity(0.1)
-            : Colors.black.withOpacity(0.05),
+            ? Colors.white.withValues(alpha: 0.1)
+            : Colors.black.withValues(alpha: 0.05),
         shape: BoxShape.circle,
       ),
       child: IconButton(
@@ -242,7 +242,7 @@ class DarkModeIconToggle extends StatelessWidget {
   }
 }
 
-// Style 4: Animated Toggle (Bonus - More fancy!)
+// Style 4: Animated Toggle
 class DarkModeAnimatedToggle extends StatelessWidget {
   final ThemeProvider themeProvider;
 
@@ -262,8 +262,8 @@ class DarkModeAnimatedToggle extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: themeProvider.isDarkMode
-              ? Colors.white.withOpacity(0.1)
-              : Colors.black.withOpacity(0.05),
+              ? Colors.white.withValues(alpha: 0.1)
+              : Colors.black.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(

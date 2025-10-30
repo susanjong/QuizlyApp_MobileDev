@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/models/user_models.dart';
 import 'package:quiz_app/routes/app_routes.dart';
 import 'package:quiz_app/widgets/gradient_background.dart';
-import 'package:quiz_app/screens/homepage.dart';
 import 'package:quiz_app/widgets/darkmode_theme.dart';
 
 class SignUpPage extends StatefulWidget {
