@@ -8,7 +8,7 @@ import 'package:quiz_app/widgets/navbar_widget.dart';
 import 'package:quiz_app/models/education_level.dart';
 import 'package:quiz_app/models/programming_challenge.dart';
 import 'package:quiz_app/routes/app_routes.dart';
-import 'package:quiz_app/data/programming_questions.dart';
+import 'package:quiz_app/data/quiz_questions.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
