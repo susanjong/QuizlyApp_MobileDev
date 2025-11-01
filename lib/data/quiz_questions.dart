@@ -6,7 +6,8 @@ class SampleQuestions {
     return [
       Question(
         id: 'dart_q1',
-        questionText: 'Apa keyword yang digunakan untuk mendeklarasikan variabel yang nilainya tidak bisa diubah di Dart?',
+        questionText:
+        'Which keyword is used to declare a variable whose value cannot be changed in Dart?',
         answers: [
           Answer(id: 'a1', text: 'var', isCorrect: false),
           Answer(id: 'a2', text: 'final', isCorrect: true),
@@ -16,7 +17,7 @@ class SampleQuestions {
       ),
       Question(
         id: 'dart_q2',
-        questionText: 'Manakah yang merupakan tipe data primitif di Dart?',
+        questionText: 'Which are the primitive data types in Dart?',
         answers: [
           Answer(id: 'a1', text: 'int', isCorrect: true),
           Answer(id: 'a2', text: 'integer', isCorrect: false),
@@ -26,7 +27,7 @@ class SampleQuestions {
       ),
       Question(
         id: 'dart_q3',
-        questionText: 'Bagaimana cara membuat list di Dart?',
+        questionText: 'How do you create a list in Dart?',
         answers: [
           Answer(id: 'a1', text: 'List myList = new List()', isCorrect: false),
           Answer(id: 'a2', text: 'var myList = []', isCorrect: true),
@@ -36,7 +37,8 @@ class SampleQuestions {
       ),
       Question(
         id: 'dart_q4',
-        questionText: 'Apa output dari kode berikut?\n\nvoid main() {\n  print(5 + 3 * 2);\n}',
+        questionText:
+        'What is the output of the following code?\n\nvoid main() {\n  print(5 + 3 * 2);\n}',
         answers: [
           Answer(id: 'a1', text: '16', isCorrect: false),
           Answer(id: 'a2', text: '11', isCorrect: true),
@@ -46,7 +48,7 @@ class SampleQuestions {
       ),
       Question(
         id: 'dart_q5',
-        questionText: 'Keyword apa yang digunakan untuk membuat class di Dart?',
+        questionText: 'Which keyword is used to create a class in Dart?',
         answers: [
           Answer(id: 'a1', text: 'object', isCorrect: false),
           Answer(id: 'a2', text: 'class', isCorrect: true),
@@ -56,7 +58,8 @@ class SampleQuestions {
       ),
       Question(
         id: 'dart_q6',
-        questionText: 'Manakah cara yang benar untuk membuat fungsi di Dart?',
+        questionText:
+        'Which of the following is the correct way to create a function in Dart?',
         answers: [
           Answer(id: 'a1', text: 'function myFunction() {}', isCorrect: false),
           Answer(id: 'a2', text: 'void myFunction() {}', isCorrect: true),
@@ -66,17 +69,20 @@ class SampleQuestions {
       ),
       Question(
         id: 'dart_q7',
-        questionText: 'Apa perbedaan antara "final" dan "const" di Dart?',
+        questionText: 'What is the difference between "final" and "const" in Dart?',
         answers: [
-          Answer(id: 'a1', text: 'Tidak ada perbedaan', isCorrect: false),
-          Answer(id: 'a2', text: 'const harus diketahui saat compile time', isCorrect: true),
-          Answer(id: 'a3', text: 'final lebih cepat dari const', isCorrect: false),
-          Answer(id: 'a4', text: 'const bisa diubah nilainya', isCorrect: false),
+          Answer(id: 'a1', text: 'There is no difference', isCorrect: false),
+          Answer(
+              id: 'a2',
+              text: '"const" must be known at compile time',
+              isCorrect: true),
+          Answer(id: 'a3', text: '"final" is faster than const', isCorrect: false),
+          Answer(id: 'a4', text: '"const" can be changed', isCorrect: false),
         ],
       ),
       Question(
         id: 'dart_q8',
-        questionText: 'Bagaimana cara membuat string interpolation di Dart?',
+        questionText: 'How do you use string interpolation in Dart?',
         answers: [
           Answer(id: 'a1', text: 'print("Hello " + name)', isCorrect: false),
           Answer(id: 'a2', text: 'print("Hello \$name")', isCorrect: true),
@@ -86,7 +92,7 @@ class SampleQuestions {
       ),
       Question(
         id: 'dart_q9',
-        questionText: 'Apa keyword untuk mewarisi class di Dart?',
+        questionText: 'Which keyword is used to inherit a class in Dart?',
         answers: [
           Answer(id: 'a1', text: 'inherits', isCorrect: false),
           Answer(id: 'a2', text: 'implements', isCorrect: false),
@@ -96,7 +102,7 @@ class SampleQuestions {
       ),
       Question(
         id: 'dart_q10',
-        questionText: 'Manakah cara yang benar untuk membuat Map di Dart?',
+        questionText: 'Which of the following is the correct way to create a Map in Dart?',
         answers: [
           Answer(id: 'a1', text: 'var map = ()', isCorrect: false),
           Answer(id: 'a2', text: 'var map = {}', isCorrect: true),
@@ -107,12 +113,12 @@ class SampleQuestions {
     ];
   }
 
-  // Math Questions (your original)
+  // Math Questions
   static List<Question> getMathQuestions() {
     return [
       Question(
         id: 'math_q1',
-        questionText: 'Berapakah hasil dari 25 × 4?',
+        questionText: 'What is the result of 25 × 4?',
         answers: [
           Answer(id: 'a1', text: '90', isCorrect: false),
           Answer(id: 'a2', text: '100', isCorrect: true),
@@ -122,7 +128,7 @@ class SampleQuestions {
       ),
       Question(
         id: 'math_q2',
-        questionText: 'Jika x + 5 = 12, maka nilai x adalah...',
+        questionText: 'If x + 5 = 12, what is the value of x?',
         answers: [
           Answer(id: 'a1', text: '5', isCorrect: false),
           Answer(id: 'a2', text: '6', isCorrect: false),
@@ -132,7 +138,7 @@ class SampleQuestions {
       ),
       Question(
         id: 'math_q3',
-        questionText: 'Luas persegi dengan sisi 8 cm adalah...',
+        questionText: 'The area of a square with a side of 8 cm is...',
         answers: [
           Answer(id: 'a1', text: '32 cm²', isCorrect: false),
           Answer(id: 'a2', text: '48 cm²', isCorrect: false),
@@ -142,7 +148,7 @@ class SampleQuestions {
       ),
       Question(
         id: 'math_q4',
-        questionText: 'Berapakah 15% dari 200?',
+        questionText: 'What is 15% of 200?',
         answers: [
           Answer(id: 'a1', text: '20', isCorrect: false),
           Answer(id: 'a2', text: '25', isCorrect: false),
@@ -152,7 +158,7 @@ class SampleQuestions {
       ),
       Question(
         id: 'math_q5',
-        questionText: 'Hasil dari 144 ÷ 12 adalah...',
+        questionText: 'The result of 144 ÷ 12 is...',
         answers: [
           Answer(id: 'a1', text: '10', isCorrect: false),
           Answer(id: 'a2', text: '11', isCorrect: false),
@@ -162,7 +168,8 @@ class SampleQuestions {
       ),
       Question(
         id: 'math_q6',
-        questionText: 'Keliling lingkaran dengan diameter 14 cm adalah... (π = 22/7)',
+        questionText:
+        'The circumference of a circle with a diameter of 14 cm is... (π = 22/7)',
         answers: [
           Answer(id: 'a1', text: '38 cm', isCorrect: false),
           Answer(id: 'a2', text: '42 cm', isCorrect: false),
@@ -172,7 +179,7 @@ class SampleQuestions {
       ),
       Question(
         id: 'math_q7',
-        questionText: 'Jika 3x - 6 = 15, maka nilai x adalah...',
+        questionText: 'If 3x - 6 = 15, what is the value of x?',
         answers: [
           Answer(id: 'a1', text: '5', isCorrect: false),
           Answer(id: 'a2', text: '6', isCorrect: false),
@@ -182,7 +189,7 @@ class SampleQuestions {
       ),
       Question(
         id: 'math_q8',
-        questionText: 'Volume kubus dengan rusuk 5 cm adalah...',
+        questionText: 'The volume of a cube with a side of 5 cm is...',
         answers: [
           Answer(id: 'a1', text: '75 cm³', isCorrect: false),
           Answer(id: 'a2', text: '100 cm³', isCorrect: false),
@@ -192,7 +199,7 @@ class SampleQuestions {
       ),
       Question(
         id: 'math_q9',
-        questionText: 'Hasil dari √81 + √64 adalah...',
+        questionText: 'The result of √81 + √64 is...',
         answers: [
           Answer(id: 'a1', text: '15', isCorrect: false),
           Answer(id: 'a2', text: '17', isCorrect: true),
@@ -202,7 +209,7 @@ class SampleQuestions {
       ),
       Question(
         id: 'math_q10',
-        questionText: 'FPB dari 24 dan 36 adalah...',
+        questionText: 'The greatest common divisor (GCD) of 24 and 36 is...',
         answers: [
           Answer(id: 'a1', text: '6', isCorrect: false),
           Answer(id: 'a2', text: '8', isCorrect: false),
@@ -218,7 +225,7 @@ class SampleQuestions {
     return [
       Question(
         id: 'flutter_q1',
-        questionText: 'Widget apa yang digunakan untuk membuat teks di Flutter?',
+        questionText: 'Which widget is used to display text in Flutter?',
         answers: [
           Answer(id: 'a1', text: 'Label', isCorrect: false),
           Answer(id: 'a2', text: 'Text', isCorrect: true),
@@ -228,17 +235,23 @@ class SampleQuestions {
       ),
       Question(
         id: 'flutter_q2',
-        questionText: 'Apa perbedaan StatelessWidget dan StatefulWidget?',
+        questionText: 'What is the difference between StatelessWidget and StatefulWidget?',
         answers: [
-          Answer(id: 'a1', text: 'Tidak ada perbedaan', isCorrect: false),
-          Answer(id: 'a2', text: 'StatefulWidget bisa berubah state-nya', isCorrect: true),
-          Answer(id: 'a3', text: 'StatelessWidget lebih lambat', isCorrect: false),
-          Answer(id: 'a4', text: 'StatefulWidget tidak bisa di-update', isCorrect: false),
+          Answer(id: 'a1', text: 'No difference', isCorrect: false),
+          Answer(
+              id: 'a2',
+              text: 'StatefulWidget can change its state',
+              isCorrect: true),
+          Answer(id: 'a3', text: 'StatelessWidget is slower', isCorrect: false),
+          Answer(
+              id: 'a4',
+              text: 'StatefulWidget cannot be updated',
+              isCorrect: false),
         ],
       ),
       Question(
         id: 'flutter_q3',
-        questionText: 'Widget apa yang digunakan untuk membuat tombol di Flutter?',
+        questionText: 'Which widget is used to create a button in Flutter?',
         answers: [
           Answer(id: 'a1', text: 'Button', isCorrect: false),
           Answer(id: 'a2', text: 'ElevatedButton', isCorrect: true),
@@ -248,7 +261,8 @@ class SampleQuestions {
       ),
       Question(
         id: 'flutter_q4',
-        questionText: 'Method apa yang dipanggil pertama kali saat widget dibuat?',
+        questionText:
+        'Which method is called first when a widget is created?',
         answers: [
           Answer(id: 'a1', text: 'build()', isCorrect: false),
           Answer(id: 'a2', text: 'initState()', isCorrect: true),
@@ -258,7 +272,7 @@ class SampleQuestions {
       ),
       Question(
         id: 'flutter_q5',
-        questionText: 'Widget apa yang digunakan untuk layout horizontal?',
+        questionText: 'Which widget is used for horizontal layout?',
         answers: [
           Answer(id: 'a1', text: 'Column', isCorrect: false),
           Answer(id: 'a2', text: 'Row', isCorrect: true),
@@ -268,7 +282,7 @@ class SampleQuestions {
       ),
       Question(
         id: 'flutter_q6',
-        questionText: 'Bagaimana cara membuat list yang bisa di-scroll di Flutter?',
+        questionText: 'How do you create a scrollable list in Flutter?',
         answers: [
           Answer(id: 'a1', text: 'ScrollView', isCorrect: false),
           Answer(id: 'a2', text: 'ListView', isCorrect: true),
@@ -278,17 +292,17 @@ class SampleQuestions {
       ),
       Question(
         id: 'flutter_q7',
-        questionText: 'Apa fungsi setState() di Flutter?',
+        questionText: 'What is the purpose of setState() in Flutter?',
         answers: [
-          Answer(id: 'a1', text: 'Menghapus state', isCorrect: false),
-          Answer(id: 'a2', text: 'Memperbarui UI', isCorrect: true),
-          Answer(id: 'a3', text: 'Membuat state baru', isCorrect: false),
-          Answer(id: 'a4', text: 'Menyimpan data', isCorrect: false),
+          Answer(id: 'a1', text: 'To delete state', isCorrect: false),
+          Answer(id: 'a2', text: 'To update the UI', isCorrect: true),
+          Answer(id: 'a3', text: 'To create a new state', isCorrect: false),
+          Answer(id: 'a4', text: 'To save data', isCorrect: false),
         ],
       ),
       Question(
         id: 'flutter_q8',
-        questionText: 'Widget apa yang digunakan untuk membuat padding?',
+        questionText: 'Which widget is used to add padding?',
         answers: [
           Answer(id: 'a1', text: 'Margin', isCorrect: false),
           Answer(id: 'a2', text: 'Padding', isCorrect: true),
@@ -298,7 +312,7 @@ class SampleQuestions {
       ),
       Question(
         id: 'flutter_q9',
-        questionText: 'Apa perintah untuk menjalankan aplikasi Flutter?',
+        questionText: 'Which command is used to run a Flutter app?',
         answers: [
           Answer(id: 'a1', text: 'flutter start', isCorrect: false),
           Answer(id: 'a2', text: 'flutter run', isCorrect: true),
@@ -308,7 +322,7 @@ class SampleQuestions {
       ),
       Question(
         id: 'flutter_q10',
-        questionText: 'Widget apa yang digunakan untuk membuat card dengan shadow?',
+        questionText: 'Which widget is used to create a card with shadow?',
         answers: [
           Answer(id: 'a1', text: 'Container', isCorrect: false),
           Answer(id: 'a2', text: 'Card', isCorrect: true),
@@ -328,7 +342,7 @@ class SampleQuestions {
       case 'flutter':
         return getFlutterQuestions();
       case 'math':
-      case 'matematika':
+      case 'mathematics':
         return getMathQuestions();
       default:
         return getDartQuestions(); // Default to Dart questions
