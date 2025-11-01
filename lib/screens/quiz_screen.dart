@@ -7,6 +7,7 @@ import 'package:quiz_app/widgets/quiz/answer_option_list.dart';
 import 'package:quiz_app/widgets/quiz/quiz_bottom_bar.dart';
 import 'package:quiz_app/widgets/quiz/doubt_checkbox.dart';
 import 'package:quiz_app/widgets/darkmode_theme.dart';
+import 'package:quiz_app/routes/app_routes.dart';
 
 class QuizScreen extends StatefulWidget {
   final String quizTitle;
@@ -128,8 +129,8 @@ class _QuizScreenState extends State<QuizScreen> {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.pop(context);
-              Navigator.pop(context);
+              Navigator.pop(context); // Close dialog
+              _calculateAndNavigateToResult();
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFFF84A1),
@@ -167,14 +168,14 @@ class _QuizScreenState extends State<QuizScreen> {
           ],
         ),
         content: Text(
-          'Waktu quiz telah habis. Quiz akan dikumpulkan secara otomatis.',
+          'Waktu quiz telah habis. Quiz akan dikumpulkan otomatis.',
           style: TextStyle(color: _themeProvider.primaryTextColor),
         ),
         actions: [
           ElevatedButton(
             onPressed: () {
-              Navigator.pop(context);
-              Navigator.pop(context);
+              Navigator.pop(context); // Close dialog
+              _calculateAndNavigateToResult();
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFFF6B35),
@@ -183,7 +184,7 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
             ),
             child: const Text(
-              'OK',
+              'Lihat Hasil',
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -192,26 +193,35 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
-  void _showSubmitButton() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: _themeProvider.cardColor,
-        title: Text(
-          'Tombol Jawaban',
-          style: TextStyle(color: _themeProvider.primaryTextColor),
-        ),
-        content: Text(
-          'Klik tombol di atas untuk melihat semua soal',
-          style: TextStyle(color: _themeProvider.primaryTextColor),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
-          ),
-        ],
-      ),
+  void _calculateAndNavigateToResult() {
+    // Hitung jawaban benar
+    int correctAnswers = 0;
+
+    for (int i = 0; i < widget.questions.length; i++) {
+      final questionNumber = i + 1;
+      final userAnswerId = _userAnswers[questionNumber];
+
+      if (userAnswerId != null) {
+        final question = widget.questions[i];
+        final isCorrect = question.answers.any(
+              (answer) => answer.id == userAnswerId && answer.isCorrect,
+        );
+
+        if (isCorrect) {
+          correctAnswers++;
+        }
+      }
+    }
+
+    // Navigate ke result screen dengan semua data
+    AppRoutes.navigateToResult(
+      context,
+      score: correctAnswers,
+      totalQuestions: widget.questions.length,
+      quizTitle: widget.quizTitle,
+      questions: widget.questions,
+      userAnswers: _userAnswers,
+      doubtfulQuestions: _doubtfulQuestions,
     );
   }
 
@@ -251,15 +261,23 @@ class _QuizScreenState extends State<QuizScreen> {
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.pop(context),
-                          child: const Text('Batal'),
+                          child: Text(
+                            'Batal',
+                            style: TextStyle(
+                              color: _themeProvider.secondaryTextColor,
+                            ),
+                          ),
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.pop(context);
-                            Navigator.pop(context);
+                            Navigator.pop(context); // Close dialog
+                            Navigator.pop(context); // Back to home
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
                           ),
                           child: const Text(
                             'Keluar',
@@ -307,11 +325,12 @@ class _QuizScreenState extends State<QuizScreen> {
                             ),
                             const Spacer(),
                             TextButton.icon(
-                              onPressed: _showSubmitButton,
-                              icon: const Icon(Icons.grid_view, size: 20),
-                              label: const Text('Jawaban'),
+                              onPressed: _submitQuiz,
+                              icon: const Icon(Icons.check_circle, size: 20),
+                              label: const Text('Kumpulkan'),
                               style: TextButton.styleFrom(
-                                foregroundColor: _themeProvider.secondaryTextColor,
+                                foregroundColor:
+                                _themeProvider.secondaryTextColor,
                               ),
                             ),
                           ],
@@ -326,7 +345,8 @@ class _QuizScreenState extends State<QuizScreen> {
           ),
           bottomNavigationBar: QuizBottomBar(
             isFirstQuestion: _currentQuestionIndex == 0,
-            isLastQuestion: _currentQuestionIndex == widget.questions.length - 1,
+            isLastQuestion:
+            _currentQuestionIndex == widget.questions.length - 1,
             hasAnswer: _userAnswers.containsKey(_currentQuestionNumber),
             onPrevious: _previousQuestion,
             onNext: _nextQuestion,
