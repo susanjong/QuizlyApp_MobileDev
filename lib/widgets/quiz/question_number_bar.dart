@@ -4,7 +4,7 @@ class QuestionNumberBar extends StatelessWidget {
   final int totalQuestions;
   final int currentQuestion;
   final Set<int> answeredQuestions;
-  final Set<int> doubtfulQuestions; // Tambahkan parameter ini
+  final Set<int> doubtfulQuestions;
   final Function(int) onQuestionTap;
 
   const QuestionNumberBar({
@@ -12,7 +12,7 @@ class QuestionNumberBar extends StatelessWidget {
     required this.totalQuestions,
     required this.currentQuestion,
     required this.answeredQuestions,
-    required this.doubtfulQuestions, // Tambahkan parameter ini
+    required this.doubtfulQuestions,
     required this.onQuestionTap,
   });
 
@@ -36,7 +36,7 @@ class QuestionNumberBar extends StatelessWidget {
               number: questionNumber,
               isAnswered: isAnswered,
               isCurrent: isCurrent,
-              isDoubtful: isDoubtful, // Pass ke chip
+              isDoubtful: isDoubtful,
               onTap: () => onQuestionTap(questionNumber),
             ),
           );
@@ -67,18 +67,18 @@ class _QuestionNumberChip extends StatelessWidget {
     Color textColor;
 
     if (isCurrent) {
-      backgroundColor = const Color(0xFFFF6B35);
-      textColor = Colors.white;
+      backgroundColor = const Color(0xFFDD84A1);
+      textColor = const Color(0xFFFDF8E8);
     } else if (isDoubtful) {
       // Prioritaskan warna orange untuk soal yang ditandai ragu-ragu
-      backgroundColor = Colors.orange;
-      textColor = Colors.white;
+      backgroundColor = const Color(0xFFFF9800);
+      textColor = const Color(0xFFFDF8E8);
     } else if (isAnswered) {
-      backgroundColor = Colors.blue.shade100;
-      textColor = Colors.blue.shade700;
+      backgroundColor= const Color(0xFFCBE3B3).withValues(alpha: 0.8);
+    textColor = const Color(0xFF4DA476);
     } else {
       backgroundColor = Colors.grey.shade200;
-      textColor = Colors.grey.shade700;
+      textColor = Colors.black54;
     }
 
     return GestureDetector(

@@ -57,9 +57,9 @@ class _AnswerOption extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.blue.shade50 : Colors.white,
+          color: isSelected ? const Color(0x80FFBBBE): Colors.white,
           border: Border.all(
-            color: isSelected ? Colors.blue : Colors.grey.shade300,
+            color: isSelected ? const Color(0xFFDD84A1) : Colors.grey.shade300,
             width: isSelected ? 2 : 1,
           ),
           borderRadius: BorderRadius.circular(12),
@@ -70,10 +70,10 @@ class _AnswerOption extends StatelessWidget {
               width: 36,
               height: 36,
               decoration: BoxDecoration(
-                color: isSelected ? Colors.blue : Colors.white,
+                color: isSelected ? const Color(0xFFDD84A1) : Colors.white,
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: isSelected ? Colors.blue : Colors.grey.shade400,
+                  color: isSelected ? const Color(0xFFFFBBBE) : Colors.grey.shade400,
                   width: 2,
                 ),
               ),
@@ -95,7 +95,7 @@ class _AnswerOption extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                  color: isSelected ? Colors.blue.shade900 : Colors.black87,
+                  color: isSelected ? const Color(0xFF484343) : Colors.black87,
                 ),
               ),
             ),

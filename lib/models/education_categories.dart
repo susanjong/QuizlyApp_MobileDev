@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class EducationLevel {
   final String title;
@@ -11,11 +12,24 @@ class EducationLevel {
     required this.backgroundColor,
   });
 
+  // Method untuk mendapatkan TextStyle dengan Montserrat
+  TextStyle getTitleStyle({
+    double fontSize = 16,
+    FontWeight fontWeight = FontWeight.w600,
+    Color? color,
+  }) {
+    return GoogleFonts.montserrat(
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      color: color ?? Colors.black,
+    );
+  }
+
   // Static list untuk data default
   static List<EducationLevel> getDefaultLevels() {
     return [
       EducationLevel(
-        title: 'Space',
+        title: 'Programming',
         icon: Icons.public,
         backgroundColor: const Color(0xFFF5DDA9),
       ),
