@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/models/education_level.dart';
+import 'package:quiz_app/models/education_categories.dart';
 
 class CategoryCard extends StatelessWidget {
   final EducationLevel educationLevel;

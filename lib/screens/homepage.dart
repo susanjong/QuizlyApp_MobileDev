@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app/widgets/darkmode_theme.dart';
 import 'package:quiz_app/widgets/category_card.dart';
 import 'package:quiz_app/widgets/programming_card.dart';
 import 'package:quiz_app/widgets/days_indicator.dart';
-import 'package:quiz_app/widgets/featured_challenge_card.dart';
+import 'package:quiz_app/widgets/daily_challenge_card.dart';
 import 'package:quiz_app/widgets/navbar_widget.dart';
-import 'package:quiz_app/models/education_level.dart';
+import 'package:quiz_app/models/education_categories.dart';
 import 'package:quiz_app/models/programming_challenge.dart';
 import 'package:quiz_app/routes/app_routes.dart';
 import 'package:quiz_app/data/quiz_questions.dart';
@@ -85,18 +86,19 @@ class _HomePageState extends State<HomePage> {
             children: [
               Text(
                 'Hello Susan 👋',
-                style: TextStyle(
+                style: GoogleFonts.montserrat(
                   fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w700,
                   color: _themeProvider.primaryTextColor,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 4),
               Text(
-                'Siap belajar hari ini?',
-                style: TextStyle(
+                'Lets do the questions today 🔥',
+                style: GoogleFonts.montserrat(
                   fontSize: 13,
+                  fontWeight: FontWeight.w400,
                   color: _themeProvider.secondaryTextColor,
                 ),
               ),
@@ -117,9 +119,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildStreakButton() {
     return GestureDetector(
-      onTap: () {
-        // _showSnackBar('Streak kamu: 7 hari! 🔥');
-      },
+      onTap: () {},
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         decoration: BoxDecoration(
@@ -131,22 +131,22 @@ class _HomePageState extends State<HomePage> {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFFFF1493).withValues(alpha: 0.3),
+              color: const Color(0xFFCBE3B3).withValues(alpha: 0.3),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
           ],
         ),
-        child: const Row(
+        child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.local_fire_department, color: Colors.white, size: 18),
-            SizedBox(width: 4),
+            const Icon(Icons.local_fire_department, color: Colors.white, size: 18),
+            const SizedBox(width: 4),
             Text(
               '7',
-              style: TextStyle(
+              style: GoogleFonts.montserrat(
                 color: Colors.white,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w700,
                 fontSize: 16,
               ),
             ),
@@ -157,8 +157,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildWeeklyProgress() {
-    final days = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
-    final today = DateTime.now().weekday - 1; // Monday = 0
+    final days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    final today = DateTime.now().weekday - 1;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
@@ -186,25 +186,23 @@ class _HomePageState extends State<HomePage> {
       children: [
         Text(
           title,
-          style: TextStyle(
+          style: GoogleFonts.montserrat(
             fontSize: 20,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w700,
             color: _themeProvider.primaryTextColor,
           ),
         ),
         TextButton(
-          onPressed: () {
-            // _showSnackBar('Menampilkan semua $title...');
-          },
+          onPressed: () {},
           style: TextButton.styleFrom(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             minimumSize: const Size(0, 0),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
-          child: const Text(
-            'Lihat Semua',
-            style: TextStyle(
-              color: Color(0xFFFF1493),
+          child: Text(
+            'See All',
+            style: GoogleFonts.montserrat(
+              color: const Color(0xFF355F3B),
               fontWeight: FontWeight.w600,
               fontSize: 13,
             ),
@@ -245,18 +243,13 @@ class _HomePageState extends State<HomePage> {
           child: ProgrammingCard(
             challenge: challenge,
             themeProvider: _themeProvider,
-            onTap: () {
-              /*_showSnackBar(
-                'Membuka ${challenge.title} - Level ${challenge.level}',
-              );*/
-            },
+            onTap: () {},
           ),
         );
       }).toList(),
     );
   }
 
-// Function untuk start Programming Quest
   void _startProgrammingQuest() {
     AppRoutes.navigateToQuiz(
       context,
@@ -265,7 +258,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-// Function untuk start quiz by category
   void _startQuizByCategory(String category) {
     AppRoutes.navigateToQuiz(
       context,
@@ -280,17 +272,6 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _currentIndex = index;
     });
-
-    //  final messages = [
-    //   'Menu Home',
-    //   'Menu Progress',
-    //   'Menu Prestasi',
-    //   'Menu Profil',
-    // ];
-    //
-    // if (index < messages.length) {
-    //   _showSnackBar(messages[index]);
-    // }
   }
 
   void _showSnackBar(String message) {
@@ -298,7 +279,12 @@ class _HomePageState extends State<HomePage> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message),
+        content: Text(
+          message,
+          style: GoogleFonts.montserrat(
+            fontWeight: FontWeight.w500,
+          ),
+        ),
         duration: const Duration(seconds: 2),
         backgroundColor: const Color(0xFFFF1493),
         behavior: SnackBarBehavior.floating,

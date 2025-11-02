@@ -31,6 +31,15 @@ class NavbarWidget extends StatelessWidget {
           currentIndex: currentIndex,
           onTap: onTap,
           elevation: 0,
+          // Tambahkan selectedLabelStyle dan unselectedLabelStyle
+          selectedLabelStyle: const TextStyle(
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.w600,
+          ),
+          unselectedLabelStyle: const TextStyle(
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.w500,
+          ),
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home_rounded, size: 24),

@@ -48,7 +48,7 @@ class DoubtCheckbox extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             Text(
-              'Ragu-ragu',
+              'Doubt',
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: isChecked ? FontWeight.w600 : FontWeight.w500,
