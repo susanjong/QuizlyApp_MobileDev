@@ -359,7 +359,10 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            // Navigate ke halaman Forgot Password
+            AppRoutes.navigateToForgotPassword(context);
+          },
           child: Text(
             'Forgot Password ?',
             style: GoogleFonts.montserrat(

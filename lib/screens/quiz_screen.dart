@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app/models/question_model.dart';
 import 'package:quiz_app/widgets/quiz/quiz_header.dart';
 import 'package:quiz_app/widgets/quiz/question_number_bar.dart';
@@ -83,9 +84,9 @@ class _QuizScreenState extends State<QuizScreen> {
           borderRadius: BorderRadius.circular(16),
         ),
         title: Text(
-          'Kumpulkan Quiz?',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
+          'Submit Quiz?',
+          style: GoogleFonts.montserrat(
+            fontWeight: FontWeight.w700,
             color: _themeProvider.primaryTextColor,
           ),
         ),
@@ -94,14 +95,17 @@ class _QuizScreenState extends State<QuizScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Kamu telah menjawab ${_answeredQuestions.length} dari ${widget.questions.length} soal.',
-              style: TextStyle(color: _themeProvider.primaryTextColor),
+              'You have answered ${_answeredQuestions.length} out of ${widget.questions.length} questions.',
+              style: GoogleFonts.montserrat(
+                color: _themeProvider.primaryTextColor,
+                fontWeight: FontWeight.w400,
+              ),
             ),
             if (unansweredCount > 0) ...[
               const SizedBox(height: 8),
               Text(
-                'Masih ada $unansweredCount soal yang belum dijawab.',
-                style: const TextStyle(
+                'There are still $unansweredCount questions unanswered.',
+                style: GoogleFonts.montserrat(
                   color: Colors.orange,
                   fontWeight: FontWeight.w600,
                 ),
@@ -110,8 +114,8 @@ class _QuizScreenState extends State<QuizScreen> {
             if (_doubtfulQuestions.isNotEmpty) ...[
               const SizedBox(height: 8),
               Text(
-                'Kamu ragu-ragu pada ${_doubtfulQuestions.length} soal.',
-                style: const TextStyle(
+                'You are doubtful about ${_doubtfulQuestions.length} questions.',
+                style: GoogleFonts.montserrat(
                   color: Colors.blue,
                   fontWeight: FontWeight.w600,
                 ),
@@ -123,24 +127,30 @@ class _QuizScreenState extends State<QuizScreen> {
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
-              'Batal',
-              style: TextStyle(color: _themeProvider.secondaryTextColor),
+              'Cancel',
+              style: GoogleFonts.montserrat(
+                color: _themeProvider.secondaryTextColor,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.pop(context); // Close dialog
+              Navigator.pop(context);
               _calculateAndNavigateToResult();
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFFF84A1),
+              backgroundColor: const Color(0xCC355F3B),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            child: const Text(
-              'Kumpulkan',
-              style: TextStyle(color: Colors.white),
+            child: Text(
+              'Submit',
+              style: GoogleFonts.montserrat(
+                color: const Color(0xFFFFFCCF),
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ],
@@ -162,19 +172,25 @@ class _QuizScreenState extends State<QuizScreen> {
             const Icon(Icons.access_time, color: Colors.red),
             const SizedBox(width: 8),
             Text(
-              'Waktu Habis!',
-              style: TextStyle(color: _themeProvider.primaryTextColor),
+              'Time\'s Up!',
+              style: GoogleFonts.montserrat(
+                color: _themeProvider.primaryTextColor,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ],
         ),
         content: Text(
-          'Waktu quiz telah habis. Quiz akan dikumpulkan otomatis.',
-          style: TextStyle(color: _themeProvider.primaryTextColor),
+          'Quiz time has expired. The quiz will be submitted automatically.',
+          style: GoogleFonts.montserrat(
+            color: _themeProvider.primaryTextColor,
+            fontWeight: FontWeight.w400,
+          ),
         ),
         actions: [
           ElevatedButton(
             onPressed: () {
-              Navigator.pop(context); // Close dialog
+              Navigator.pop(context);
               _calculateAndNavigateToResult();
             },
             style: ElevatedButton.styleFrom(
@@ -183,9 +199,12 @@ class _QuizScreenState extends State<QuizScreen> {
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            child: const Text(
-              'Lihat Hasil',
-              style: TextStyle(color: Colors.white),
+            child: Text(
+              'View Results',
+              style: GoogleFonts.montserrat(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ],
@@ -194,7 +213,6 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   void _calculateAndNavigateToResult() {
-    // Hitung jawaban benar
     int correctAnswers = 0;
 
     for (int i = 0; i < widget.questions.length; i++) {
@@ -213,7 +231,6 @@ class _QuizScreenState extends State<QuizScreen> {
       }
     }
 
-    // Navigate ke result screen dengan semua data
     AppRoutes.navigateToResult(
       context,
       score: correctAnswers,
@@ -247,31 +264,34 @@ class _QuizScreenState extends State<QuizScreen> {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       title: Text(
-                        'Keluar Quiz?',
-                        style: TextStyle(
+                        'Exit Quiz?',
+                        style: GoogleFonts.montserrat(
                           color: _themeProvider.primaryTextColor,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                       content: Text(
-                        'Progres kamu akan hilang jika keluar sekarang.',
-                        style: TextStyle(
+                        'Your progress will be lost if you exit now.',
+                        style: GoogleFonts.montserrat(
                           color: _themeProvider.primaryTextColor,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.pop(context),
                           child: Text(
-                            'Batal',
-                            style: TextStyle(
+                            'Cancel',
+                            style: GoogleFonts.montserrat(
                               color: _themeProvider.secondaryTextColor,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.pop(context); // Close dialog
-                            Navigator.pop(context); // Back to home
+                            Navigator.pop(context);
+                            Navigator.pop(context);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,
@@ -279,9 +299,12 @@ class _QuizScreenState extends State<QuizScreen> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                          child: const Text(
-                            'Keluar',
-                            style: TextStyle(color: Colors.white),
+                          child: Text(
+                            'Exit',
+                            style: GoogleFonts.montserrat(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ],
@@ -327,10 +350,14 @@ class _QuizScreenState extends State<QuizScreen> {
                             TextButton.icon(
                               onPressed: _submitQuiz,
                               icon: const Icon(Icons.check_circle, size: 20),
-                              label: const Text('Kumpulkan'),
+                              label: Text(
+                                'Submit',
+                                style: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                               style: TextButton.styleFrom(
-                                foregroundColor:
-                                _themeProvider.secondaryTextColor,
+                                foregroundColor: _themeProvider.secondaryTextColor,
                               ),
                             ),
                           ],
@@ -345,8 +372,7 @@ class _QuizScreenState extends State<QuizScreen> {
           ),
           bottomNavigationBar: QuizBottomBar(
             isFirstQuestion: _currentQuestionIndex == 0,
-            isLastQuestion:
-            _currentQuestionIndex == widget.questions.length - 1,
+            isLastQuestion: _currentQuestionIndex == widget.questions.length - 1,
             hasAnswer: _userAnswers.containsKey(_currentQuestionNumber),
             onPrevious: _previousQuestion,
             onNext: _nextQuestion,
