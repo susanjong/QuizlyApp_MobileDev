@@ -5,7 +5,11 @@ import 'package:quiz_app/screens/splashscreen.dart';
 import 'package:quiz_app/screens/homepage.dart';
 import 'package:quiz_app/screens/quiz_screen.dart';
 import 'package:quiz_app/screens/result_screen.dart';
+import 'package:quiz_app/screens/forgot_password.dart';
+import 'package:quiz_app/screens/reset_password.dart';
 import 'package:quiz_app/models/question_model.dart';
+
+// File ini diletakkan di: lib/routes/app_routes.dart
 
 class AppRoutes {
   // route names
@@ -26,8 +30,8 @@ class AppRoutes {
     signIn: (context) => const LoginPage(),
     signUp: (context) => const SignUpPage(),
     home: (context) => const HomePage(),
-    // forgotPassword: (context) => const ForgotPasswordPage(),
-    // resetPassword: (context) => const ResetPasswordPage(),
+    forgotPassword: (context) => const ForgotPasswordPage(),
+    resetPassword: (context) => const ResetPasswordPage(),
   };
 
   // navigate to route
@@ -94,6 +98,16 @@ class AppRoutes {
         ),
       ),
     );
+  }
+
+  // navigate to forgot password
+  static void navigateToForgotPassword(BuildContext context) {
+    Navigator.pushNamed(context, forgotPassword);
+  }
+
+  // navigate to reset password
+  static void navigateToResetPassword(BuildContext context) {
+    Navigator.pushNamed(context, resetPassword);
   }
 
   // go back
