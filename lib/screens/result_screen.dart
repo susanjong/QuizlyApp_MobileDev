@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app/models/question_model.dart';
 import 'package:quiz_app/widgets/darkmode_theme.dart';
 import 'package:quiz_app/routes/app_routes.dart';
+import 'package:quiz_app/screens/quiz_review_screen.dart'; // Import screen baru
 
 class QuizResult {
   final int totalQuestions;
@@ -180,6 +181,10 @@ class ResultScreen extends StatelessWidget {
                       _ActionButtons(
                         themeProvider: themeProvider,
                         result: result,
+                        quizTitle: quizTitle,
+                        questions: questions,
+                        userAnswers: userAnswers,
+                        doubtfulQuestions: doubtfulQuestions,
                       ),
                       const SizedBox(height: 32),
                     ],
@@ -406,41 +411,91 @@ class _StatCard extends StatelessWidget {
 class _ActionButtons extends StatelessWidget {
   final ThemeProvider themeProvider;
   final QuizResult result;
+  final String quizTitle;
+  final List<Question> questions;
+  final Map<int, String> userAnswers;
+  final Set<int> doubtfulQuestions;
 
   const _ActionButtons({
     required this.themeProvider,
     required this.result,
+    required this.quizTitle,
+    required this.questions,
+    required this.userAnswers,
+    required this.doubtfulQuestions,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: () {
-              AppRoutes.navigateToHome(context);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFFF84A1),
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+        Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => QuizReviewScreen(
+                        quizTitle: quizTitle,
+                        questions: questions,
+                        userAnswers: userAnswers,
+                        doubtfulQuestions: doubtfulQuestions,
+                      ),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(
+                      color: const Color(0xCC355F3B),
+                      width: 2,
+                    ),
+                  ),
+                  elevation: 0,
+                ),
+                child: Text(
+                  'See Results',
+                  style: GoogleFonts.montserrat(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    backgroundColor: Colors.transparent,
+                  ),
+                ),
               ),
-              elevation: 2,
             ),
-            child: Text(
-              'Back to Home',
-              style: GoogleFonts.montserrat(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
+            const SizedBox(width: 12),
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () {
+                  AppRoutes.navigateToHome(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xCC355F3B),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 2,
+                ),
+                child: Text(
+                  'Back to Home',
+                  style: GoogleFonts.montserrat(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFFFFFCCF),
+                  ),
+                ),
               ),
             ),
-          ),
+          ],
         ),
         const SizedBox(height: 12),
+        // Share Results Button
         SizedBox(
           width: double.infinity,
           child: OutlinedButton.icon(
@@ -521,7 +576,7 @@ ${result.feedback}
               style: GoogleFonts.montserrat(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
-                color: Colors.grey,
+                color: Colors.black,
                 fontStyle: FontStyle.italic,
               ),
             ),
@@ -534,6 +589,7 @@ ${result.feedback}
               'Close',
               style: GoogleFonts.montserrat(
                 fontWeight: FontWeight.w600,
+                color: const Color(0xFF616161),
               ),
             ),
           ),

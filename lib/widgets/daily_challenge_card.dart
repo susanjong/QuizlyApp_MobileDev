@@ -14,7 +14,7 @@ class FeaturedChallengeCard extends StatelessWidget {
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Color(0xFFFFC6DE), Color(0xFFDD84A1)],
+          colors: [Color(0xFFFDF8E8), Color(0xFFCBE3B3)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -71,7 +71,7 @@ class FeaturedChallengeCard extends StatelessWidget {
                 ElevatedButton(
                   onPressed: onPressed,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF363434),
+                    backgroundColor: const Color(0xFF355F3B).withValues(alpha: 0.8),
                     foregroundColor: Colors.white,
                     padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -82,7 +82,7 @@ class FeaturedChallengeCard extends StatelessWidget {
                     minimumSize: const Size(0, 36),
                   ),
                   child: const Text(
-                    'Mulai Sekarang',
+                    'Start now',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
