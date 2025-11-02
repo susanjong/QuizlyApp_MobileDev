@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
 
 class QuizHeader extends StatefulWidget {
@@ -62,11 +63,11 @@ class _QuizHeaderState extends State<QuizHeader> {
 
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            const Color(0xFFFFDD84A1),
-            const Color(0xFFFFBB00BE),
+            Color(0xFFFDF0E2),
+            Color(0xFFFFC1C2),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -77,16 +78,16 @@ class _QuizHeaderState extends State<QuizHeader> {
           children: [
             IconButton(
               onPressed: widget.onBackPressed,
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              icon: const Icon(Icons.arrow_back, color: Colors.black),
             ),
             const SizedBox(width: 8),
             Expanded(
               child: Text(
                 widget.title,
-                style: const TextStyle(
+                style: GoogleFonts.montserrat(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               ),
             ),
@@ -112,14 +113,14 @@ class _TimerBox extends StatelessWidget {
     return Row(
       children: [
         _TimeDigit(value: minutes),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
           child: Text(
             ':',
-            style: TextStyle(
+            style: GoogleFonts.montserrat(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: Colors.black,
             ),
           ),
         ),
@@ -139,15 +140,15 @@ class _TimeDigit extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.2),
+        color: Colors.white.withOpacity(0.2),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
         value.toString().padLeft(2, '0'),
-        style: const TextStyle(
+        style: GoogleFonts.montserrat(
           fontSize: 20,
           fontWeight: FontWeight.bold,
-          color: Colors.white,
+          color: const Color(0xFF383232),
         ),
       ),
     );

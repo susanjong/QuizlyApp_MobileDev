@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class QuizBottomBar extends StatelessWidget {
   final bool isFirstQuestion;
@@ -41,14 +42,14 @@ class QuizBottomBar extends StatelessWidget {
                   onPressed: onPrevious,
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    side: BorderSide(color: Colors.grey.shade300),
+                    side: BorderSide(color: Colors.grey.withOpacity(0.5)),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: const Text(
-                    'Sebelumnya',
-                    style: TextStyle(
+                  child: Text(
+                    'Previous',
+                    style: GoogleFonts.montserrat(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: Colors.black87,
@@ -63,17 +64,17 @@ class QuizBottomBar extends StatelessWidget {
                 onPressed: isLastQuestion ? onSubmit : onNext,
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  backgroundColor: const Color(0xFFFF84A1),
+                  backgroundColor: const Color(0xFF355F3B).withValues(alpha: 0.8),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
                 child: Text(
-                  isLastQuestion ? 'Selesai' : 'Berikutnya',
-                  style: const TextStyle(
+                  isLastQuestion ? 'Finish' : 'Next',
+                  style: GoogleFonts.montserrat(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                    color: const Color(0xFFFFFCCF),
                   ),
                 ),
               ),
