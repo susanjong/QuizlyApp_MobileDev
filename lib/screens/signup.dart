@@ -3,6 +3,7 @@ import 'package:quiz_app/models/user_models.dart';
 import 'package:quiz_app/routes/app_routes.dart';
 import 'package:quiz_app/widgets/gradient_background.dart';
 import 'package:quiz_app/widgets/darkmode_theme.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -60,7 +61,12 @@ class _SignUpPageState extends State<SignUpPage> {
     AppRoutes.navigateTo(context, AppRoutes.home);
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Account created successfully!')),
+      SnackBar(
+        content: Text(
+          'Account created successfully!',
+          style: GoogleFonts.montserrat(),
+        ),
+      ),
     );
   }
 
@@ -166,13 +172,16 @@ class _SignUpPageState extends State<SignUpPage> {
                 },
               ),
             ),
-            const SizedBox(width: 8),
-            Text(
-              'Quizly',
-              style: TextStyle(
-                color: _themeProvider.primaryTextColor,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+            const SizedBox(width: 10),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                'Quizly',
+                style: GoogleFonts.montserrat(
+                  color: const Color(0xFFCBE3B3),
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           ],
@@ -189,7 +198,7 @@ class _SignUpPageState extends State<SignUpPage> {
       children: [
         Text(
           'Get Started now',
-          style: TextStyle(
+          style: GoogleFonts.montserrat(
             color: _themeProvider.primaryTextColor,
             fontSize: 32,
             fontWeight: FontWeight.bold,
@@ -198,7 +207,7 @@ class _SignUpPageState extends State<SignUpPage> {
         const SizedBox(height: 8),
         Text(
           'Create an account or log in to explore about our app',
-          style: TextStyle(
+          style: GoogleFonts.montserrat(
             color: _themeProvider.secondaryTextColor,
             fontSize: 14,
           ),
@@ -227,7 +236,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: Center(
                   child: Text(
                     'Log In',
-                    style: TextStyle(
+                    style: GoogleFonts.montserrat(
                       color: !_isSignUpTab ? Colors.white : _themeProvider.primaryTextColor,
                       fontWeight: !_isSignUpTab ? FontWeight.bold : FontWeight.w600,
                     ),
@@ -252,7 +261,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: Center(
                   child: Text(
                     'Sign Up',
-                    style: TextStyle(
+                    style: GoogleFonts.montserrat(
                       color: _isSignUpTab ? Colors.white : _themeProvider.primaryTextColor,
                       fontWeight: _isSignUpTab ? FontWeight.bold : FontWeight.w600,
                     ),
@@ -272,19 +281,20 @@ class _SignUpPageState extends State<SignUpPage> {
       children: [
         Text(
           'Full Name',
-          style: TextStyle(
+          style: GoogleFonts.montserrat(
             color: _themeProvider.primaryTextColor,
             fontSize: 14,
+            fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: 8),
         TextFormField(
           controller: _nameController,
-          style: TextStyle(color: _themeProvider.primaryTextColor),
+          style: GoogleFonts.montserrat(color: _themeProvider.primaryTextColor),
           validator: _validateName,
           decoration: InputDecoration(
             hintText: 'Enter your name',
-            hintStyle: TextStyle(color: _themeProvider.hintTextColor),
+            hintStyle: GoogleFonts.montserrat(color: _themeProvider.hintTextColor),
             filled: true,
             fillColor: _themeProvider.inputBackgroundColor,
             border: OutlineInputBorder(
@@ -295,7 +305,7 @@ class _SignUpPageState extends State<SignUpPage> {
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(color: Colors.red),
             ),
-            errorStyle: const TextStyle(color: Colors.redAccent),
+            errorStyle: GoogleFonts.montserrat(color: Colors.redAccent),
             contentPadding: const EdgeInsets.all(16),
           ),
         ),
@@ -309,20 +319,21 @@ class _SignUpPageState extends State<SignUpPage> {
       children: [
         Text(
           'Email',
-          style: TextStyle(
+          style: GoogleFonts.montserrat(
             color: _themeProvider.primaryTextColor,
             fontSize: 14,
+            fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: 8),
         TextFormField(
           controller: _emailController,
-          style: TextStyle(color: _themeProvider.primaryTextColor),
+          style: GoogleFonts.montserrat(color: _themeProvider.primaryTextColor),
           keyboardType: TextInputType.emailAddress,
           validator: _validateEmail,
           decoration: InputDecoration(
             hintText: 'Enter your email',
-            hintStyle: TextStyle(color: _themeProvider.hintTextColor),
+            hintStyle: GoogleFonts.montserrat(color: _themeProvider.hintTextColor),
             filled: true,
             fillColor: _themeProvider.inputBackgroundColor,
             border: OutlineInputBorder(
@@ -333,7 +344,7 @@ class _SignUpPageState extends State<SignUpPage> {
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(color: Colors.red),
             ),
-            errorStyle: const TextStyle(color: Colors.redAccent),
+            errorStyle: GoogleFonts.montserrat(color: Colors.redAccent),
             contentPadding: const EdgeInsets.all(16),
           ),
         ),
@@ -347,20 +358,21 @@ class _SignUpPageState extends State<SignUpPage> {
       children: [
         Text(
           'Password',
-          style: TextStyle(
+          style: GoogleFonts.montserrat(
             color: _themeProvider.primaryTextColor,
             fontSize: 14,
+            fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: 8),
         TextFormField(
           controller: _passwordController,
           obscureText: _obscurePassword,
-          style: TextStyle(color: _themeProvider.primaryTextColor),
+          style: GoogleFonts.montserrat(color: _themeProvider.primaryTextColor),
           validator: _validatePassword,
           decoration: InputDecoration(
             hintText: '••••••••',
-            hintStyle: TextStyle(color: _themeProvider.hintTextColor),
+            hintStyle: GoogleFonts.montserrat(color: _themeProvider.hintTextColor),
             filled: true,
             fillColor: _themeProvider.inputBackgroundColor,
             border: OutlineInputBorder(
@@ -371,7 +383,7 @@ class _SignUpPageState extends State<SignUpPage> {
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(color: Colors.red),
             ),
-            errorStyle: const TextStyle(color: Colors.redAccent),
+            errorStyle: GoogleFonts.montserrat(color: Colors.redAccent),
             contentPadding: const EdgeInsets.all(16),
             suffixIcon: IconButton(
               icon: Icon(
@@ -396,20 +408,21 @@ class _SignUpPageState extends State<SignUpPage> {
       children: [
         Text(
           'Confirm Password',
-          style: TextStyle(
+          style: GoogleFonts.montserrat(
             color: _themeProvider.primaryTextColor,
             fontSize: 14,
+            fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: 8),
         TextFormField(
           controller: _confirmPasswordController,
           obscureText: _obscureConfirmPassword,
-          style: TextStyle(color: _themeProvider.primaryTextColor),
+          style: GoogleFonts.montserrat(color: _themeProvider.primaryTextColor),
           validator: _validateConfirmPassword,
           decoration: InputDecoration(
             hintText: '••••••••',
-            hintStyle: TextStyle(color: _themeProvider.hintTextColor),
+            hintStyle: GoogleFonts.montserrat(color: _themeProvider.hintTextColor),
             filled: true,
             fillColor: _themeProvider.inputBackgroundColor,
             border: OutlineInputBorder(
@@ -420,7 +433,7 @@ class _SignUpPageState extends State<SignUpPage> {
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(color: Colors.red),
             ),
-            errorStyle: const TextStyle(color: Colors.redAccent),
+            errorStyle: GoogleFonts.montserrat(color: Colors.redAccent),
             contentPadding: const EdgeInsets.all(16),
             suffixIcon: IconButton(
               icon: Icon(
@@ -448,14 +461,14 @@ class _SignUpPageState extends State<SignUpPage> {
       child: ElevatedButton(
         onPressed: _handleSignUp,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF4169E1),
+          backgroundColor: const Color(0xFF355F3B).withValues(alpha: 0.8),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        child: const Text(
+        child: Text(
           'Sign Up',
-          style: TextStyle(
+          style: GoogleFonts.montserrat(
             fontSize: 16,
             fontWeight: FontWeight.w600,
             color: Colors.white,

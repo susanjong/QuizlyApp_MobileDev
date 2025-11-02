@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app/widgets/social_button.dart';
 import 'package:quiz_app/widgets/darkmode_theme.dart';
 import 'package:quiz_app/routes/app_routes.dart';
-
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -30,27 +30,25 @@ class _LoginPageState extends State<LoginPage> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    // Navigator.pushReplacement(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => const HomePage()),
-    // );
-
     AppRoutes.navigateTo(context, AppRoutes.home);
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Login successful!')),
+      SnackBar(
+        content: Text(
+          'Login successful!',
+          style: GoogleFonts.montserrat(fontWeight: FontWeight.w500),
+        ),
+      ),
     );
   }
 
   void _navigateToSignUp() {
-    // Ambil instance global ThemeProvider
     final currentTheme = _themeProvider.isDarkMode;
 
     setState(() {
       _isLoginTab = false;
     });
 
-    // Navigasi ke halaman SignUp, kirim state dark/light-nya
     Navigator.pushNamed(
       context,
       AppRoutes.signUp,
@@ -63,7 +61,6 @@ class _LoginPageState extends State<LoginPage> {
       });
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -134,13 +131,16 @@ class _LoginPageState extends State<LoginPage> {
                 fit: BoxFit.cover,
               ),
             ),
-            const SizedBox(width: 8),
-            Text(
-              'Quizly',
-              style: TextStyle(
-                color: _themeProvider.primaryTextColor,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+            const SizedBox(width: 10),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                'Quizly',
+                style: GoogleFonts.montserrat(
+                  color: Color(0xFFCBE3B3),
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           ],
@@ -156,18 +156,19 @@ class _LoginPageState extends State<LoginPage> {
       children: [
         Text(
           'Get Started now',
-          style: TextStyle(
+          style: GoogleFonts.montserrat(
             color: _themeProvider.primaryTextColor,
             fontSize: 32,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w700,
           ),
         ),
         const SizedBox(height: 8),
         Text(
           'Create an account or log in to explore about our app',
-          style: TextStyle(
+          style: GoogleFonts.montserrat(
             color: _themeProvider.secondaryTextColor,
             fontSize: 14,
+            fontWeight: FontWeight.w400,
           ),
         ),
       ],
@@ -200,11 +201,9 @@ class _LoginPageState extends State<LoginPage> {
                 child: Center(
                   child: Text(
                     'Log In',
-                    style: TextStyle(
+                    style: GoogleFonts.montserrat(
                       color: _isLoginTab ? Colors.white : _themeProvider.primaryTextColor,
-                      fontWeight: _isLoginTab
-                          ? FontWeight.bold
-                          : FontWeight.w600,
+                      fontWeight: _isLoginTab ? FontWeight.w700 : FontWeight.w600,
                     ),
                   ),
                 ),
@@ -225,11 +224,9 @@ class _LoginPageState extends State<LoginPage> {
                 child: Center(
                   child: Text(
                     'Sign Up',
-                    style: TextStyle(
+                    style: GoogleFonts.montserrat(
                       color: !_isLoginTab ? Colors.white : _themeProvider.primaryTextColor,
-                      fontWeight: !_isLoginTab
-                          ? FontWeight.bold
-                          : FontWeight.w600,
+                      fontWeight: !_isLoginTab ? FontWeight.w700 : FontWeight.w600,
                     ),
                   ),
                 ),
@@ -247,20 +244,24 @@ class _LoginPageState extends State<LoginPage> {
       children: [
         Text(
           'Email',
-          style: TextStyle(
+          style: GoogleFonts.montserrat(
             color: _themeProvider.primaryTextColor,
             fontSize: 14,
+            fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: 8),
         TextField(
           controller: _emailController,
-          style: TextStyle(color: _themeProvider.primaryTextColor),
+          style: GoogleFonts.montserrat(
+            color: _themeProvider.primaryTextColor,
+          ),
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
             hintText: 'Lottebecketi@gmail.com',
-            hintStyle: TextStyle(
+            hintStyle: GoogleFonts.montserrat(
               color: _themeProvider.primaryTextColor.withValues(alpha: 0.4),
+              fontWeight: FontWeight.w400,
             ),
             filled: true,
             fillColor: _themeProvider.inputBackgroundColor,
@@ -281,20 +282,24 @@ class _LoginPageState extends State<LoginPage> {
       children: [
         Text(
           'Password',
-          style: TextStyle(
+          style: GoogleFonts.montserrat(
             color: _themeProvider.primaryTextColor,
             fontSize: 14,
+            fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: 8),
         TextField(
           controller: _passwordController,
           obscureText: _obscurePassword,
-          style: TextStyle(color: _themeProvider.primaryTextColor),
+          style: GoogleFonts.montserrat(
+            color: _themeProvider.primaryTextColor,
+          ),
           decoration: InputDecoration(
             hintText: '••••••••',
-            hintStyle: TextStyle(
+            hintStyle: GoogleFonts.montserrat(
               color: _themeProvider.primaryTextColor.withValues(alpha: 0.4),
+              fontWeight: FontWeight.w400,
             ),
             filled: true,
             fillColor: _themeProvider.inputBackgroundColor,
@@ -345,20 +350,22 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(width: 8),
             Text(
               'Remember me',
-              style: TextStyle(
+              style: GoogleFonts.montserrat(
                 color: _themeProvider.primaryTextColor,
                 fontSize: 13,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ],
         ),
         TextButton(
           onPressed: () {},
-          child: const Text(
+          child: Text(
             'Forgot Password ?',
-            style: TextStyle(
-              color: Color(0xFF4169E1),
+            style: GoogleFonts.montserrat(
+              color: const Color(0xFF355F3B),
               fontSize: 13,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ),
@@ -373,14 +380,14 @@ class _LoginPageState extends State<LoginPage> {
       child: ElevatedButton(
         onPressed: _handleLogin,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF4169E1),
+          backgroundColor: const Color(0xFF355F3B).withValues(alpha: 0.8),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        child: const Text(
+        child: Text(
           'Log In',
-          style: TextStyle(
+          style: GoogleFonts.montserrat(
             fontSize: 16,
             fontWeight: FontWeight.w600,
             color: Colors.white,
@@ -398,7 +405,10 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(
             'Or',
-            style: TextStyle(color: _themeProvider.secondaryTextColor),
+            style: GoogleFonts.montserrat(
+              color: _themeProvider.secondaryTextColor,
+              fontWeight: FontWeight.w400,
+            ),
           ),
         ),
         Expanded(child: Divider(color: _themeProvider.dividerColor)),
@@ -411,8 +421,8 @@ class _LoginPageState extends State<LoginPage> {
       children: [
         SocialButton(
           text: 'Continue with Google',
-          icon: Image.network(
-            'https://www.google.com/favicon.ico',
+          icon: Image.asset(
+            'assets/images/logo_google.png',
             width: 20,
             height: 20,
           ),
