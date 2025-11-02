@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app/models/question_model.dart';
 import 'package:quiz_app/widgets/darkmode_theme.dart';
 import 'package:quiz_app/routes/app_routes.dart';
@@ -42,7 +43,6 @@ class QuizResult {
     return 'Keep trying!';
   }
 
-
   Color get gradeColor {
     if (score >= 90) return const Color(0xFF4CAF50);
     if (score >= 80) return const Color(0xFF2196F3);
@@ -74,13 +74,9 @@ class ResultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = ThemeProvider();
 
-    // Hitung jumlah yang tidak dijawab
     final unanswered = totalQuestions - userAnswers.length;
-
-    // Hitung jumlah jawaban salah
     final wrongAnswers = userAnswers.length - score;
 
-    // Buat instance hasil quiz
     final result = QuizResult(
       totalQuestions: totalQuestions,
       correctAnswers: score,
@@ -140,19 +136,20 @@ class ResultScreen extends StatelessWidget {
                             color: Colors.white,
                           ),
                           const SizedBox(height: 8),
-                          const Text(
+                          Text(
                             'Quiz Completed!',
-                            style: TextStyle(
+                            style: GoogleFonts.montserrat(
                               fontSize: 24,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w700,
                               color: Colors.white,
                             ),
                           ),
                           const SizedBox(height: 4),
                           Text(
                             quizTitle,
-                            style: const TextStyle(
+                            style: GoogleFonts.montserrat(
                               fontSize: 14,
+                              fontWeight: FontWeight.w400,
                               color: Colors.white70,
                             ),
                           ),
@@ -170,7 +167,6 @@ class ResultScreen extends StatelessWidget {
                 ),
               ),
 
-              // Isi Konten
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.all(16),
@@ -198,7 +194,6 @@ class ResultScreen extends StatelessWidget {
   }
 }
 
-// Score Card
 class _ScoreCard extends StatelessWidget {
   final QuizResult result;
   final ThemeProvider themeProvider;
@@ -220,9 +215,10 @@ class _ScoreCard extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Nilai Kamu',
-            style: TextStyle(
+            'Your Score',
+            style: GoogleFonts.montserrat(
               fontSize: 16,
+              fontWeight: FontWeight.w500,
               color: themeProvider.secondaryTextColor,
             ),
           ),
@@ -244,15 +240,15 @@ class _ScoreCard extends StatelessWidget {
                 children: [
                   Text(
                     result.score.toStringAsFixed(0),
-                    style: TextStyle(
+                    style: GoogleFonts.montserrat(
                       fontSize: 48,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w700,
                       color: result.gradeColor,
                     ),
                   ),
                   Text(
                     result.grade,
-                    style: TextStyle(
+                    style: GoogleFonts.montserrat(
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
                       color: themeProvider.secondaryTextColor,
@@ -265,7 +261,7 @@ class _ScoreCard extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             result.feedback,
-            style: TextStyle(
+            style: GoogleFonts.montserrat(
               fontSize: 18,
               fontWeight: FontWeight.w600,
               color: result.gradeColor,
@@ -274,8 +270,9 @@ class _ScoreCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             'You answered ${result.correctAnswers} out of ${result.totalQuestions} correctly!',
-            style: TextStyle(
+            style: GoogleFonts.montserrat(
               fontSize: 14,
+              fontWeight: FontWeight.w400,
               color: themeProvider.secondaryTextColor,
             ),
           ),
@@ -285,7 +282,6 @@ class _ScoreCard extends StatelessWidget {
   }
 }
 
-// statistik jawaban
 class _StatisticsGrid extends StatelessWidget {
   final QuizResult result;
   final ThemeProvider themeProvider;
@@ -305,7 +301,7 @@ class _StatisticsGrid extends StatelessWidget {
               child: _StatCard(
                 icon: Icons.check_circle,
                 iconColor: const Color(0xFF4CAF50),
-                label: 'Benar',
+                label: 'Correct',
                 value: '${result.correctAnswers}',
                 themeProvider: themeProvider,
               ),
@@ -315,7 +311,7 @@ class _StatisticsGrid extends StatelessWidget {
               child: _StatCard(
                 icon: Icons.cancel,
                 iconColor: const Color(0xFFF44336),
-                label: 'Salah',
+                label: 'Wrong',
                 value: '${result.wrongAnswers}',
                 themeProvider: themeProvider,
               ),
@@ -331,7 +327,7 @@ class _StatisticsGrid extends StatelessWidget {
                   child: _StatCard(
                     icon: Icons.help_outline,
                     iconColor: const Color(0xFF9E9E9E),
-                    label: 'Tidak Dijawab',
+                    label: 'Unanswered',
                     value: '${result.unanswered}',
                     themeProvider: themeProvider,
                   ),
@@ -343,7 +339,7 @@ class _StatisticsGrid extends StatelessWidget {
                   child: _StatCard(
                     icon: Icons.warning_amber,
                     iconColor: const Color(0xFFFF9800),
-                    label: 'Ragu-ragu',
+                    label: 'Doubtful',
                     value: '${result.doubtfulAnswers}',
                     themeProvider: themeProvider,
                   ),
@@ -356,7 +352,6 @@ class _StatisticsGrid extends StatelessWidget {
   }
 }
 
-//statistik card
 class _StatCard extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
@@ -387,16 +382,17 @@ class _StatCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             value,
-            style: TextStyle(
+            style: GoogleFonts.montserrat(
               fontSize: 24,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w700,
               color: themeProvider.primaryTextColor,
             ),
           ),
           Text(
             label,
-            style: TextStyle(
+            style: GoogleFonts.montserrat(
               fontSize: 12,
+              fontWeight: FontWeight.w500,
               color: themeProvider.secondaryTextColor,
             ),
             textAlign: TextAlign.center,
@@ -407,7 +403,6 @@ class _StatCard extends StatelessWidget {
   }
 }
 
-// Tombol action
 class _ActionButtons extends StatelessWidget {
   final ThemeProvider themeProvider;
   final QuizResult result;
@@ -435,9 +430,9 @@ class _ActionButtons extends StatelessWidget {
               ),
               elevation: 2,
             ),
-            child: const Text(
-              'Kembali ke Beranda',
-              style: TextStyle(
+            child: Text(
+              'Back to Home',
+              style: GoogleFonts.montserrat(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
@@ -458,8 +453,8 @@ class _ActionButtons extends StatelessWidget {
               color: themeProvider.primaryTextColor,
             ),
             label: Text(
-              'Bagikan Hasil',
-              style: TextStyle(
+              'Share Results',
+              style: GoogleFonts.montserrat(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
                 color: themeProvider.primaryTextColor,
@@ -498,23 +493,34 @@ ${result.feedback}
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        title: const Row(
+        title: Row(
           children: [
-            Icon(Icons.share, color: Color(0xFFFF84A1)),
-            SizedBox(width: 8),
-            Text('Share Results'),
+            const Icon(Icons.share, color: Color(0xFFFF84A1)),
+            const SizedBox(width: 8),
+            Text(
+              'Share Results',
+              style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ],
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(shareText),
+            Text(
+              shareText,
+              style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w400,
+              ),
+            ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'Sharing feature coming soon!',
-              style: TextStyle(
+              style: GoogleFonts.montserrat(
                 fontSize: 12,
+                fontWeight: FontWeight.w400,
                 color: Colors.grey,
                 fontStyle: FontStyle.italic,
               ),
@@ -524,7 +530,12 @@ ${result.feedback}
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
+            child: Text(
+              'Close',
+              style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
         ],
       ),

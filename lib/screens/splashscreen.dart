@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
 import 'package:quiz_app/widgets/gradient_background.dart';
 import 'package:quiz_app/routes/app_routes.dart';
@@ -25,25 +26,21 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    // Main animation controller
     _mainController = AnimationController(
       duration: const Duration(milliseconds: 1800),
       vsync: this,
     );
 
-    // Pulse animation controller (subtle breathing effect)
     _pulseController = AnimationController(
       duration: const Duration(milliseconds: 2000),
       vsync: this,
     );
 
-    // Slide animation controller
     _slideController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
 
-    // Fade in animation
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _mainController,
@@ -51,7 +48,6 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
 
-    // Scale animation - soft entrance
     _scaleAnimation = Tween<double>(begin: 0.7, end: 1.0).animate(
       CurvedAnimation(
         parent: _mainController,
@@ -59,7 +55,6 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
 
-    // Pulse animation - subtle breathing
     _pulseAnimation = Tween<double>(begin: 1.0, end: 1.05).animate(
       CurvedAnimation(
         parent: _pulseController,
@@ -67,7 +62,6 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
 
-    // Slide animation - text slides from right
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0.3, 0),
       end: Offset.zero,
@@ -78,18 +72,15 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
 
-    // Start animations
     _mainController.forward();
     _slideController.forward();
 
-    // Start pulse animation after main animation
     Future.delayed(const Duration(milliseconds: 800), () {
       if (mounted) {
         _pulseController.repeat(reverse: true);
       }
     });
 
-    // Navigate to login after 3 seconds
     Timer(const Duration(milliseconds: 3500), () {
       if (mounted) {
         AppRoutes.navigateAndReplace(context, AppRoutes.login);
@@ -125,7 +116,6 @@ class _SplashScreenState extends State<SplashScreen>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // Logo Container
                         Transform.scale(
                           scale: _pulseAnimation.value,
                           child: Container(
@@ -134,7 +124,6 @@ class _SplashScreenState extends State<SplashScreen>
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                // Logo Icon
                                 Container(
                                   width: 70,
                                   height: 70,
@@ -156,7 +145,6 @@ class _SplashScreenState extends State<SplashScreen>
                                       height: 70,
                                       fit: BoxFit.contain,
                                       errorBuilder: (context, error, stackTrace) {
-                                        // Fallback if image not found
                                         return Container(
                                           width: 70,
                                           height: 70,
@@ -174,9 +162,7 @@ class _SplashScreenState extends State<SplashScreen>
                                     ),
                                   ),
                                 ),
-
                                 const SizedBox(width: 20),
-                                // Logo Text with slide animation
                                 SlideTransition(
                                   position: _slideAnimation,
                                   child: Image.asset(
@@ -185,19 +171,18 @@ class _SplashScreenState extends State<SplashScreen>
                                     height: 60,
                                     fit: BoxFit.contain,
                                     errorBuilder: (context, error, stackTrace) {
-                                      // Fallback text if image not found
-                                      return const Text(
+                                      return Text(
                                         'QUIZLY',
-                                        style: TextStyle(
-                                          fontSize: 48,
+                                        style: GoogleFonts.montserrat(
+                                          fontSize: 40,
                                           fontWeight: FontWeight.w900,
-                                          color: Color(0xFFF5B6C8),
+                                          color: const Color(0xFFCBE3B3),
                                           letterSpacing: 3,
-                                          shadows: [
+                                          shadows: const [
                                             Shadow(
                                               offset: Offset(2, 2),
                                               blurRadius: 8,
-                                              color: Color(0xFFE8A4B8),
+                                              color: Color(0xFFCBE3B3),
                                             ),
                                           ],
                                         ),
@@ -209,35 +194,7 @@ class _SplashScreenState extends State<SplashScreen>
                             ),
                           ),
                         ),
-                        const SizedBox(height: 30),
-                        // Tagline with delayed fade
-                        Opacity(
-                          opacity: (_fadeAnimation.value * 0.8).clamp(0.0, 0.8),
-                          child: const Text(
-                            'Test Your Knowledge',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xFFE8A4B8),
-                              letterSpacing: 2,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 60),
-                        // Loading indicator
-                        Opacity(
-                          opacity: (_fadeAnimation.value * 0.6).clamp(0.0, 0.6),
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 3,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                const Color(0xFFF5B6C8).withValues(alpha: 0.5),
-                              ),
-                            ),
-                          ),
-                        ),
+
                       ],
                     ),
                   ),
