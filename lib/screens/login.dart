@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app/widgets/social_button.dart';
 import 'package:quiz_app/widgets/darkmode_theme.dart';
 import 'package:quiz_app/routes/app_routes.dart';
+import 'package:quiz_app/models/user_session.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -29,6 +30,9 @@ class _LoginPageState extends State<LoginPage> {
   void _handleLogin() {
     String email = _emailController.text;
     String password = _passwordController.text;
+
+    //Untuk menyimppan user session
+    UserSession().setUser(email: email);
 
     AppRoutes.navigateTo(context, AppRoutes.home);
 
@@ -360,7 +364,6 @@ class _LoginPageState extends State<LoginPage> {
         ),
         TextButton(
           onPressed: () {
-            // Navigate ke halaman Forgot Password
             AppRoutes.navigateToForgotPassword(context);
           },
           child: Text(

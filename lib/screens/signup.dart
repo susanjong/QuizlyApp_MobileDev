@@ -4,6 +4,7 @@ import 'package:quiz_app/routes/app_routes.dart';
 import 'package:quiz_app/widgets/gradient_background.dart';
 import 'package:quiz_app/widgets/darkmode_theme.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quiz_app/models/user_session.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final ThemeProvider _themeProvider = ThemeProvider(); //ini untuk atur darkmodenya
+  final ThemeProvider _themeProvider = ThemeProvider();
 
   bool _isSignUpTab = true;
   bool _obscurePassword = true;
@@ -29,8 +30,6 @@ class _SignUpPageState extends State<SignUpPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    // Ambil argumen dari halaman sebelumnya agar ini bisa stay apabila
-    // theme di login di set masih status dark/light mode (sinkron)
     final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
     if (args != null && args['isDarkMode'] != null) {
@@ -48,15 +47,22 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void _handleSignUp() {
+    // Ambil email dan name
+    String email = _emailController.text.isEmpty ? 'guest@example.com' : _emailController.text;
+    String name = _nameController.text.isEmpty ? 'Guest User' : _nameController.text;
+
     UserModel newUser = UserModel(
-      name: _nameController.text.isEmpty ? 'Guest User' : _nameController.text,
-      email: _emailController.text.isEmpty ? 'guest@example.com' : _emailController.text,
+      name: name,
+      email: email,
       password: _passwordController.text.isEmpty ? '123456' : _passwordController.text,
     );
 
-    //Navigator.pushReplacement( context, MaterialPageRoute(builder: (context)
-    // => const HomePage()),
-    // );
+    // TAMBAHKAN INI - Simpan data user ke UserSession
+    // Prioritas: jika ada email gunakan email, jika tidak ada gunakan name
+    UserSession().setUser(
+      email: email,
+      name: name,
+    );
 
     AppRoutes.navigateTo(context, AppRoutes.home);
 
