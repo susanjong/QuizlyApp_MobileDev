@@ -10,6 +10,7 @@ import 'package:quiz_app/models/education_categories.dart';
 import 'package:quiz_app/models/programming_challenge.dart';
 import 'package:quiz_app/routes/app_routes.dart';
 import 'package:quiz_app/data/quiz_questions.dart';
+import 'package:quiz_app/models/user_session.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,6 +30,31 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     educationLevels = EducationLevel.getDefaultLevels();
     programmingChallenges = ProgrammingChallenge.getDefaultChallenges();
+  }
+
+  // TAMBAHKAN FUNGSI INI untuk extract nama dari email
+  String _getUserName() {
+    final userIdentifier = UserSession().displayIdentifier;
+
+    // Jika user identifier adalah email, extract nama dari email
+    if (userIdentifier.contains('@')) {
+      final emailParts = userIdentifier.split('@');
+      if (emailParts.isNotEmpty) {
+        String name = emailParts[0];
+
+        // Replace underscore dan dot dengan spasi
+        name = name.replaceAll('_', ' ').replaceAll('.', ' ');
+
+        // Capitalize setiap kata
+        return name.split(' ').map((word) {
+          if (word.isEmpty) return word;
+          return word[0].toUpperCase() + word.substring(1).toLowerCase();
+        }).join(' ');
+      }
+    }
+
+    // Jika bukan email atau jika sudah ada nama, return as is
+    return userIdentifier;
   }
 
   @override
@@ -77,6 +103,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildHeader() {
+    // AMBIL NAMA USER DARI SESSION
+    final userName = _getUserName();
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -85,7 +114,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Hello Susan 👋',
+                'Hello $userName 👋', // GANTI "Susan" dengan userName
                 style: GoogleFonts.montserrat(
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
