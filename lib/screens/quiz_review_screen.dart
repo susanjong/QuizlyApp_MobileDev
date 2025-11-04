@@ -52,10 +52,12 @@ class QuizReviewScreen extends StatelessWidget {
             itemCount: questions.length,
             itemBuilder: (context, index) {
               final question = questions[index];
-              final userAnswerId = userAnswers[index];
-              final isDoubtful = doubtfulQuestions.contains(index);
 
-              // Find user's answer and correct answer
+              // Untuk mencocokkan penyimpanan userAnswers
+              final userAnswerId = userAnswers[index + 1];
+              final isDoubtful = doubtfulQuestions.contains(index + 1);
+
+              // Temukan jawaban user dan jawaban benar
               Answer? userAnswer;
               Answer? correctAnswer;
 
@@ -138,7 +140,7 @@ class _QuestionReviewCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: themeProvider.getCardShadow(),
         border: Border.all(
-          color: statusColor.withOpacity(0.3),
+          color: statusColor.withValues(alpha: 0.3),
           width: 2,
         ),
       ),
@@ -151,7 +153,7 @@ class _QuestionReviewCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: statusColor.withOpacity(0.1),
+                  color: statusColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
@@ -176,9 +178,9 @@ class _QuestionReviewCard extends StatelessWidget {
               ),
               if (isDoubtful) ...[
                 const SizedBox(width: 8),
-                Icon(
+                const Icon(
                   Icons.warning_amber,
-                  color: const Color(0xFFFF9800),
+                  color: Color(0xFFFF9800),
                   size: 20,
                 ),
               ],
@@ -209,18 +211,18 @@ class _QuestionReviewCard extends StatelessWidget {
             IconData? icon;
 
             if (isCorrectAnswer) {
-              backgroundColor = const Color(0xFF4CAF50).withOpacity(0.1);
+              backgroundColor = const Color(0xFF4CAF50).withValues(alpha:0.1);
               borderColor = const Color(0xFF4CAF50);
               textColor = const Color(0xFF4CAF50);
               icon = Icons.check_circle;
             } else if (isUserAnswer && !isCorrect) {
-              backgroundColor = const Color(0xFFF44336).withOpacity(0.1);
+              backgroundColor = const Color(0xFFF44336).withValues(alpha: 0.1);
               borderColor = const Color(0xFFF44336);
               textColor = const Color(0xFFF44336);
               icon = Icons.cancel;
             } else {
               backgroundColor = Colors.transparent;
-              borderColor = themeProvider.primaryTextColor.withOpacity(0.2);
+              borderColor = themeProvider.primaryTextColor.withValues(alpha: 0.2);
               textColor = themeProvider.secondaryTextColor;
               icon = null;
             }
@@ -245,7 +247,9 @@ class _QuestionReviewCard extends StatelessWidget {
                       style: GoogleFonts.montserrat(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: icon != null ? textColor : themeProvider.primaryTextColor,
+                        color: icon != null
+                            ? textColor
+                            : themeProvider.primaryTextColor,
                       ),
                     ),
                   ),
@@ -261,8 +265,8 @@ class _QuestionReviewCard extends StatelessWidget {
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: themeProvider.isDarkMode
-                    ? Colors.white.withOpacity(0.05)
-                    : Colors.black.withOpacity(0.05),
+                    ? Colors.white.withValues(alpha: 0.05)
+                    : Colors.black.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(
@@ -271,11 +275,8 @@ class _QuestionReviewCard extends StatelessWidget {
                   if (!isCorrect) ...[
                     Row(
                       children: [
-                        Icon(
-                          Icons.cancel,
-                          color: const Color(0xFFF44336),
-                          size: 16,
-                        ),
+                        const Icon(Icons.cancel,
+                            color: Color(0xFFF44336), size: 16),
                         const SizedBox(width: 6),
                         Text(
                           'Your answer: ',
@@ -301,11 +302,8 @@ class _QuestionReviewCard extends StatelessWidget {
                   ],
                   Row(
                     children: [
-                      Icon(
-                        Icons.check_circle,
-                        color: const Color(0xFF4CAF50),
-                        size: 16,
-                      ),
+                      const Icon(Icons.check_circle,
+                          color: Color(0xFF4CAF50), size: 16),
                       const SizedBox(width: 6),
                       Text(
                         'Correct answer: ',
@@ -337,16 +335,13 @@ class _QuestionReviewCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: const Color(0xFF9E9E9E).withOpacity(0.1),
+                color: const Color(0xFF9E9E9E).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(
                 children: [
-                  Icon(
-                    Icons.info_outline,
-                    color: const Color(0xFF9E9E9E),
-                    size: 16,
-                  ),
+                  const Icon(Icons.info_outline,
+                      color: Color(0xFF9E9E9E), size: 16),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
