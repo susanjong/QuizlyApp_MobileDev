@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app/models/question_model.dart';
 import 'package:quiz_app/widgets/darkmode_theme.dart';
 import 'package:quiz_app/routes/app_routes.dart';
-import 'package:quiz_app/screens/quiz_review_screen.dart'; // Import screen baru
+import 'package:quiz_app/screens/quiz_review_screen.dart';
 
 class QuizResult {
   final int totalQuestions;
@@ -54,12 +54,14 @@ class QuizResult {
 }
 
 class ResultScreen extends StatelessWidget {
+ //Parameter
   final int score;
   final int totalQuestions;
   final String quizTitle;
   final List<Question> questions;
   final Map<int, String> userAnswers;
   final Set<int> doubtfulQuestions;
+  final String? userName;
 
   const ResultScreen({
     super.key,
@@ -69,7 +71,28 @@ class ResultScreen extends StatelessWidget {
     required this.questions,
     required this.userAnswers,
     required this.doubtfulQuestions,
+    this.userName,
   });
+
+  // Fungsi untuk extract nama dari email
+  String _extractNameFromEmail(String? email) {
+    if (email == null || email.isEmpty) return 'User';
+
+    // Ambil bagian sebelum @
+    final parts = email.split('@');
+    if (parts.isEmpty) return 'User';
+
+    String name = parts[0];
+
+    // DIganti dari underscore atau dot itu kedalam bentuk spasi
+    name = name.replaceAll('_', ' ').replaceAll('.', ' ');
+
+    // Capitalize setiap kata
+    return name.split(' ').map((word) {
+      if (word.isEmpty) return word;
+      return word[0].toUpperCase() + word.substring(1).toLowerCase();
+    }).join(' ');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +111,8 @@ class ResultScreen extends StatelessWidget {
       userAnswers: userAnswers,
       doubtfulQuestions: doubtfulQuestions,
     );
+
+    final displayName = _extractNameFromEmail(userName);
 
     return ListenableBuilder(
       listenable: themeProvider,
@@ -173,7 +198,11 @@ class ResultScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     children: [
-                      _ScoreCard(result: result, themeProvider: themeProvider),
+                      _ScoreCard(
+                        result: result,
+                        themeProvider: themeProvider,
+                        userName: displayName,
+                      ),
                       const SizedBox(height: 16),
                       _StatisticsGrid(
                           result: result, themeProvider: themeProvider),
@@ -202,10 +231,12 @@ class ResultScreen extends StatelessWidget {
 class _ScoreCard extends StatelessWidget {
   final QuizResult result;
   final ThemeProvider themeProvider;
+  final String userName; // Tambahkan parameter userName
 
   const _ScoreCard({
     required this.result,
     required this.themeProvider,
+    required this.userName, // Required parameter
   });
 
   @override
@@ -219,12 +250,27 @@ class _ScoreCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(
-            'Your Score',
-            style: GoogleFonts.montserrat(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: themeProvider.secondaryTextColor,
+          // Tampilkan "Your Score, [Nama]"
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Your Score, ',
+                  style: GoogleFonts.montserrat(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: themeProvider.secondaryTextColor,
+                  ),
+                ),
+                TextSpan(
+                  text: userName,
+                  style: GoogleFonts.montserrat(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: themeProvider.primaryTextColor,
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 16),
@@ -451,8 +497,8 @@ class _ActionButtons extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
-                    side: BorderSide(
-                      color: const Color(0xCC355F3B),
+                    side: const BorderSide(
+                      color:  Color(0xCC355F3B),
                       width: 2,
                     ),
                   ),
@@ -495,7 +541,6 @@ class _ActionButtons extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 12),
-        // Share Results Button
         SizedBox(
           width: double.infinity,
           child: OutlinedButton.icon(
@@ -518,7 +563,7 @@ class _ActionButtons extends StatelessWidget {
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
               side: BorderSide(
-                color: themeProvider.primaryTextColor.withOpacity(0.5),
+                color: themeProvider.primaryTextColor.withValues(alpha: 0.5),
               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
