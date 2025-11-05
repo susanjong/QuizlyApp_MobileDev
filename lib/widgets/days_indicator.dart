@@ -48,15 +48,15 @@ class DayIndicator extends StatelessWidget {
   BoxDecoration _buildContainerDecoration(ThemeProvider themeProvider) {
     if (isActive) {
       return BoxDecoration(
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           colors: [Color(0xFFCDFF00), Color(0xFF9AFF00)],
         ),
         shape: BoxShape.circle,
-        boxShadow: [
+        boxShadow:  [
           BoxShadow(
-            color: const Color(0x4DCDFF00), // Mengganti withOpacity(0.3)
+            color: Color(0x4DCDFF00),
             blurRadius: 6,
-            offset: const Offset(0, 2),
+            offset: Offset(0, 2),
           ),
         ],
       );
