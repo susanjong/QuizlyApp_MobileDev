@@ -4,6 +4,7 @@ import 'package:quiz_app/models/question_model.dart';
 import 'package:quiz_app/widgets/darkmode_theme.dart';
 import 'package:quiz_app/routes/app_routes.dart';
 import 'package:quiz_app/screens/quiz_review_screen.dart';
+import 'package:quiz_app/models/user_session.dart';
 
 class QuizResult {
   final int totalQuestions;
@@ -54,7 +55,6 @@ class QuizResult {
 }
 
 class ResultScreen extends StatelessWidget {
- //Parameter
   final int score;
   final int totalQuestions;
   final String quizTitle;
@@ -74,29 +74,11 @@ class ResultScreen extends StatelessWidget {
     this.userName,
   });
 
-  // Fungsi untuk extract nama dari email
-  String _extractNameFromEmail(String? email) {
-    if (email == null || email.isEmpty) return 'User';
-
-    // Ambil bagian sebelum @
-    final parts = email.split('@');
-    if (parts.isEmpty) return 'User';
-
-    String name = parts[0];
-
-    // DIganti dari underscore atau dot itu kedalam bentuk spasi
-    name = name.replaceAll('_', ' ').replaceAll('.', ' ');
-
-    // Capitalize setiap kata
-    return name.split(' ').map((word) {
-      if (word.isEmpty) return word;
-      return word[0].toUpperCase() + word.substring(1).toLowerCase();
-    }).join(' ');
-  }
-
   @override
   Widget build(BuildContext context) {
     final themeProvider = ThemeProvider();
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isLargeScreen = screenWidth > 600;
 
     final unanswered = totalQuestions - userAnswers.length;
     final wrongAnswers = userAnswers.length - score;
@@ -112,7 +94,7 @@ class ResultScreen extends StatelessWidget {
       doubtfulQuestions: doubtfulQuestions,
     );
 
-    final displayName = _extractNameFromEmail(userName);
+    final displayName = UserSession().getDisplayName();
 
     return ListenableBuilder(
       listenable: themeProvider,
@@ -124,7 +106,7 @@ class ResultScreen extends StatelessWidget {
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
-                expandedHeight: 180,
+                expandedHeight: isLargeScreen ? 200 : 180,
                 pinned: true,
                 flexibleSpace: FlexibleSpaceBar(
                   background: Container(
@@ -149,37 +131,48 @@ class ResultScreen extends StatelessWidget {
                       ),
                     ),
                     child: SafeArea(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            result.score >= 70
-                                ? Icons.emoji_events
-                                : result.score >= 50
-                                ? Icons.sentiment_satisfied
-                                : Icons.sentiment_dissatisfied,
-                            size: 60,
-                            color: Colors.white,
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'Quiz Completed!',
-                            style: GoogleFonts.montserrat(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w700,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: isLargeScreen ? 32 : 16,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              result.score >= 70
+                                  ? Icons.emoji_events
+                                  : result.score >= 50
+                                  ? Icons.sentiment_satisfied
+                                  : Icons.sentiment_dissatisfied,
+                              size: isLargeScreen ? 72 : 60,
                               color: Colors.white,
                             ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            quizTitle,
-                            style: GoogleFonts.montserrat(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white70,
+                            SizedBox(height: isLargeScreen ? 12 : 8),
+                            Text(
+                              'Quiz Completed!',
+                              style: GoogleFonts.montserrat(
+                                fontSize: isLargeScreen ? 28 : 24,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 4),
+                            Flexible(
+                              child: Text(
+                                quizTitle,
+                                style: GoogleFonts.montserrat(
+                                  fontSize: isLargeScreen ? 16 : 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white70,
+                                ),
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -192,32 +185,46 @@ class ResultScreen extends StatelessWidget {
                   icon: const Icon(Icons.close, color: Colors.white),
                 ),
               ),
-
               SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      _ScoreCard(
-                        result: result,
-                        themeProvider: themeProvider,
-                        userName: displayName,
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final maxWidth = constraints.maxWidth;
+                    final contentWidth = maxWidth > 800 ? 800.0 : maxWidth;
+
+                    return Center(
+                      child: Container(
+                        width: contentWidth,
+                        padding: EdgeInsets.all(isLargeScreen ? 24 : 16),
+                        child: Column(
+                          children: [
+                            _ScoreCard(
+                              result: result,
+                              themeProvider: themeProvider,
+                              userName: displayName,
+                              isLargeScreen: isLargeScreen,
+                            ),
+                            SizedBox(height: isLargeScreen ? 24 : 16),
+                            _StatisticsGrid(
+                              result: result,
+                              themeProvider: themeProvider,
+                              isLargeScreen: isLargeScreen,
+                            ),
+                            SizedBox(height: isLargeScreen ? 24 : 16),
+                            _ActionButtons(
+                              themeProvider: themeProvider,
+                              result: result,
+                              quizTitle: quizTitle,
+                              questions: questions,
+                              userAnswers: userAnswers,
+                              doubtfulQuestions: doubtfulQuestions,
+                              isLargeScreen: isLargeScreen,
+                            ),
+                            SizedBox(height: isLargeScreen ? 48 : 32),
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 16),
-                      _StatisticsGrid(
-                          result: result, themeProvider: themeProvider),
-                      const SizedBox(height: 16),
-                      _ActionButtons(
-                        themeProvider: themeProvider,
-                        result: result,
-                        quizTitle: quizTitle,
-                        questions: questions,
-                        userAnswers: userAnswers,
-                        doubtfulQuestions: doubtfulQuestions,
-                      ),
-                      const SizedBox(height: 32),
-                    ],
-                  ),
+                    );
+                  },
                 ),
               ),
             ],
@@ -231,18 +238,22 @@ class ResultScreen extends StatelessWidget {
 class _ScoreCard extends StatelessWidget {
   final QuizResult result;
   final ThemeProvider themeProvider;
-  final String userName; // Tambahkan parameter userName
+  final String userName;
+  final bool isLargeScreen;
 
   const _ScoreCard({
     required this.result,
     required this.themeProvider,
-    required this.userName, // Required parameter
+    required this.userName,
+    required this.isLargeScreen,
   });
 
   @override
   Widget build(BuildContext context) {
+    final circleSize = isLargeScreen ? 180.0 : 150.0;
+
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: EdgeInsets.all(isLargeScreen ? 32 : 24),
       decoration: BoxDecoration(
         color: themeProvider.cardColor,
         borderRadius: BorderRadius.circular(20),
@@ -250,49 +261,54 @@ class _ScoreCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // Tampilkan "Your Score, [Nama]"
-          RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: 'Your Score, ',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: themeProvider.secondaryTextColor,
+          // Display "Your Score, [Name]" with text wrapping
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Your Score, ',
+                    style: GoogleFonts.montserrat(
+                      fontSize: isLargeScreen ? 18 : 16,
+                      fontWeight: FontWeight.w500,
+                      color: themeProvider.secondaryTextColor,
+                    ),
                   ),
-                ),
-                TextSpan(
-                  text: userName,
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: themeProvider.primaryTextColor,
+                  TextSpan(
+                    text: userName,
+                    style: GoogleFonts.montserrat(
+                      fontSize: isLargeScreen ? 18 : 16,
+                      fontWeight: FontWeight.w700,
+                      color: themeProvider.primaryTextColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: isLargeScreen ? 24 : 16),
           Stack(
             alignment: Alignment.center,
             children: [
               SizedBox(
-                width: 150,
-                height: 150,
+                width: circleSize,
+                height: circleSize,
                 child: CircularProgressIndicator(
                   value: result.score / 100,
-                  strokeWidth: 12,
+                  strokeWidth: isLargeScreen ? 14 : 12,
                   backgroundColor: themeProvider.progressBarBackground,
                   valueColor: AlwaysStoppedAnimation<Color>(result.gradeColor),
                 ),
               ),
               Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     result.score.toStringAsFixed(0),
                     style: GoogleFonts.montserrat(
-                      fontSize: 48,
+                      fontSize: isLargeScreen ? 56 : 48,
                       fontWeight: FontWeight.w700,
                       color: result.gradeColor,
                     ),
@@ -300,7 +316,7 @@ class _ScoreCard extends StatelessWidget {
                   Text(
                     result.grade,
                     style: GoogleFonts.montserrat(
-                      fontSize: 24,
+                      fontSize: isLargeScreen ? 28 : 24,
                       fontWeight: FontWeight.w600,
                       color: themeProvider.secondaryTextColor,
                     ),
@@ -309,22 +325,27 @@ class _ScoreCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: isLargeScreen ? 24 : 16),
           Text(
             result.feedback,
             style: GoogleFonts.montserrat(
-              fontSize: 18,
+              fontSize: isLargeScreen ? 20 : 18,
               fontWeight: FontWeight.w600,
               color: result.gradeColor,
             ),
+            textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 8),
-          Text(
-            'You answered ${result.correctAnswers} out of ${result.totalQuestions} correctly!',
-            style: GoogleFonts.montserrat(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: themeProvider.secondaryTextColor,
+          SizedBox(height: isLargeScreen ? 12 : 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Text(
+              'You answered ${result.correctAnswers} out of ${result.totalQuestions} correctly!',
+              style: GoogleFonts.montserrat(
+                fontSize: isLargeScreen ? 16 : 14,
+                fontWeight: FontWeight.w400,
+                color: themeProvider.secondaryTextColor,
+              ),
+              textAlign: TextAlign.center,
             ),
           ),
         ],
@@ -336,14 +357,18 @@ class _ScoreCard extends StatelessWidget {
 class _StatisticsGrid extends StatelessWidget {
   final QuizResult result;
   final ThemeProvider themeProvider;
+  final bool isLargeScreen;
 
   const _StatisticsGrid({
     required this.result,
     required this.themeProvider,
+    required this.isLargeScreen,
   });
 
   @override
   Widget build(BuildContext context) {
+    final spacing = isLargeScreen ? 16.0 : 12.0;
+
     return Column(
       children: [
         Row(
@@ -355,9 +380,10 @@ class _StatisticsGrid extends StatelessWidget {
                 label: 'Correct',
                 value: '${result.correctAnswers}',
                 themeProvider: themeProvider,
+                isLargeScreen: isLargeScreen,
               ),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: spacing),
             Expanded(
               child: _StatCard(
                 icon: Icons.cancel,
@@ -365,12 +391,13 @@ class _StatisticsGrid extends StatelessWidget {
                 label: 'Wrong',
                 value: '${result.wrongAnswers}',
                 themeProvider: themeProvider,
+                isLargeScreen: isLargeScreen,
               ),
             ),
           ],
         ),
         if (result.unanswered > 0 || result.doubtfulAnswers > 0) ...[
-          const SizedBox(height: 12),
+          SizedBox(height: spacing),
           Row(
             children: [
               if (result.unanswered > 0)
@@ -381,10 +408,11 @@ class _StatisticsGrid extends StatelessWidget {
                     label: 'Unanswered',
                     value: '${result.unanswered}',
                     themeProvider: themeProvider,
+                    isLargeScreen: isLargeScreen,
                   ),
                 ),
               if (result.unanswered > 0 && result.doubtfulAnswers > 0)
-                const SizedBox(width: 12),
+                SizedBox(width: spacing),
               if (result.doubtfulAnswers > 0)
                 Expanded(
                   child: _StatCard(
@@ -393,6 +421,7 @@ class _StatisticsGrid extends StatelessWidget {
                     label: 'Doubtful',
                     value: '${result.doubtfulAnswers}',
                     themeProvider: themeProvider,
+                    isLargeScreen: isLargeScreen,
                   ),
                 ),
             ],
@@ -409,6 +438,7 @@ class _StatCard extends StatelessWidget {
   final String label;
   final String value;
   final ThemeProvider themeProvider;
+  final bool isLargeScreen;
 
   const _StatCard({
     required this.icon,
@@ -416,37 +446,51 @@ class _StatCard extends StatelessWidget {
     required this.label,
     required this.value,
     required this.themeProvider,
+    required this.isLargeScreen,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(isLargeScreen ? 20 : 16),
       decoration: BoxDecoration(
         color: themeProvider.cardColor,
         borderRadius: BorderRadius.circular(16),
         boxShadow: themeProvider.getCardShadow(),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 36, color: iconColor),
-          const SizedBox(height: 8),
-          Text(
-            value,
-            style: GoogleFonts.montserrat(
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
-              color: themeProvider.primaryTextColor,
+          Icon(
+            icon,
+            size: isLargeScreen ? 42 : 36,
+            color: iconColor,
+          ),
+          SizedBox(height: isLargeScreen ? 12 : 8),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              value,
+              style: GoogleFonts.montserrat(
+                fontSize: isLargeScreen ? 28 : 24,
+                fontWeight: FontWeight.w700,
+                color: themeProvider.primaryTextColor,
+              ),
             ),
           ),
-          Text(
-            label,
-            style: GoogleFonts.montserrat(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: themeProvider.secondaryTextColor,
+          SizedBox(height: 4),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              label,
+              style: GoogleFonts.montserrat(
+                fontSize: isLargeScreen ? 14 : 12,
+                fontWeight: FontWeight.w500,
+                color: themeProvider.secondaryTextColor,
+              ),
+              textAlign: TextAlign.center,
+              maxLines: 1,
             ),
-            textAlign: TextAlign.center,
           ),
         ],
       ),
@@ -461,6 +505,7 @@ class _ActionButtons extends StatelessWidget {
   final List<Question> questions;
   final Map<int, String> userAnswers;
   final Set<int> doubtfulQuestions;
+  final bool isLargeScreen;
 
   const _ActionButtons({
     required this.themeProvider,
@@ -469,78 +514,38 @@ class _ActionButtons extends StatelessWidget {
     required this.questions,
     required this.userAnswers,
     required this.doubtfulQuestions,
+    required this.isLargeScreen,
   });
 
   @override
   Widget build(BuildContext context) {
+    final buttonPadding = isLargeScreen ? 20.0 : 16.0;
+    final fontSize = isLargeScreen ? 18.0 : 16.0;
+    final spacing = isLargeScreen ? 16.0 : 12.0;
+
     return Column(
       children: [
+        // TOMBOL SEE RESULTS DAN BACK TO HOME SELALU BERSEBELAHAN
         Row(
           children: [
             Expanded(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => QuizReviewScreen(
-                        quizTitle: quizTitle,
-                        questions: questions,
-                        userAnswers: userAnswers,
-                        doubtfulQuestions: doubtfulQuestions,
-                      ),
-                    ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    side: const BorderSide(
-                      color:  Color(0xCC355F3B),
-                      width: 2,
-                    ),
-                  ),
-                  elevation: 0,
-                ),
-                child: Text(
-                  'See Results',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    backgroundColor: Colors.transparent,
-                  ),
-                ),
+              child: _buildSeeResultsButton(
+                context,
+                buttonPadding,
+                fontSize,
               ),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: spacing),
             Expanded(
-              child: ElevatedButton(
-                onPressed: () {
-                  AppRoutes.navigateToHome(context);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xCC355F3B),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  elevation: 2,
-                ),
-                child: Text(
-                  'Back to Home',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: const Color(0xFFFFFCCF),
-                  ),
-                ),
+              child: _buildBackToHomeButton(
+                context,
+                buttonPadding,
+                fontSize,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: spacing),
         SizedBox(
           width: double.infinity,
           child: OutlinedButton.icon(
@@ -549,19 +554,22 @@ class _ActionButtons extends StatelessWidget {
             },
             icon: Icon(
               Icons.share,
-              size: 20,
+              size: isLargeScreen ? 22 : 20,
               color: themeProvider.primaryTextColor,
             ),
-            label: Text(
-              'Share Results',
-              style: GoogleFonts.montserrat(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: themeProvider.primaryTextColor,
+            label: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                'Share Results',
+                style: GoogleFonts.montserrat(
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.w600,
+                  color: themeProvider.primaryTextColor,
+                ),
               ),
             ),
             style: OutlinedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: EdgeInsets.symmetric(vertical: buttonPadding),
               side: BorderSide(
                 color: themeProvider.primaryTextColor.withValues(alpha: 0.5),
               ),
@@ -572,6 +580,88 @@ class _ActionButtons extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildSeeResultsButton(
+      BuildContext context,
+      double padding,
+      double fontSize,
+      ) {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => QuizReviewScreen(
+                quizTitle: quizTitle,
+                questions: questions,
+                userAnswers: userAnswers,
+                doubtfulQuestions: doubtfulQuestions,
+              ),
+            ),
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          padding: EdgeInsets.symmetric(vertical: padding),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: const BorderSide(
+              color: Color(0xCC355F3B),
+              width: 2,
+            ),
+          ),
+          elevation: 0,
+        ),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            'See Results',
+            style: GoogleFonts.montserrat(
+              fontSize: fontSize,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xCC355F3B),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBackToHomeButton(
+      BuildContext context,
+      double padding,
+      double fontSize,
+      ) {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          AppRoutes.navigateToHome(context);
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xCC355F3B),
+          padding: EdgeInsets.symmetric(vertical: padding),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 2,
+        ),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            'Back to Home',
+            style: GoogleFonts.montserrat(
+              fontSize: fontSize,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xFFFFFCCF),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -589,56 +679,87 @@ ${result.feedback}
 
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (context) => Dialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        title: Row(
-          children: [
-            const Icon(Icons.share, color: Color(0xFFFF84A1)),
-            const SizedBox(width: 8),
-            Text(
-              'Share Results',
-              style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              shareText,
-              style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Sharing feature coming soon!',
-              style: GoogleFonts.montserrat(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: Colors.black,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(
-              'Close',
-              style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w600,
-                color: const Color(0xFF616161),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: 400,
+            maxHeight: MediaQuery.of(context).size.height * 0.8,
+          ),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.share, color: Color(0xFFFF84A1)),
+                      const SizedBox(width: 8),
+                      Flexible(
+                        child: Text(
+                          'Share Results',
+                          style: GoogleFonts.montserrat(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: Colors.grey.shade300,
+                        width: 1,
+                      ),
+                    ),
+                    child: SelectableText(
+                      shareText,
+                      style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        height: 1.5,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Sharing feature coming soon!',
+                    style: GoogleFonts.montserrat(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black54,
+                      fontStyle: FontStyle.italic,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text(
+                        'Close',
+                        style: GoogleFonts.montserrat(
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xFF616161),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
