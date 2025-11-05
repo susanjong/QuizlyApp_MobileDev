@@ -47,21 +47,45 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void _handleSignUp() {
-    // Ambil email dan name
-    String email = _emailController.text.isEmpty ? 'guest@example.com' : _emailController.text;
-    String name = _nameController.text.isEmpty ? 'Guest User' : _nameController.text;
+    String name = _nameController.text.trim();
+    String email = _emailController.text.trim();
+    String password = _passwordController.text;
+
+    // Validasi: setidaknya salah satu harus diisi (name atau email)
+    if (name.isEmpty && email.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Harap isi nama atau email!',
+            style: GoogleFonts.montserrat(fontWeight: FontWeight.w500),
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    // Jika hanya email yang diisi, gunakan email sebagai name
+    if (name.isEmpty && email.isNotEmpty) {
+      name = email;
+    }
+
+    // Jika hanya name yang diisi, buat email default
+    if (email.isEmpty && name.isNotEmpty) {
+      email = '${name.toLowerCase().replaceAll(' ', '')}@guest.com';
+    }
 
     UserModel newUser = UserModel(
       name: name,
       email: email,
-      password: _passwordController.text.isEmpty ? '123456' : _passwordController.text,
+      password: password.isEmpty ? '123456' : password,
     );
 
-    // TAMBAHKAN INI - Simpan data user ke UserSession
-    // Prioritas: jika ada email gunakan email, jika tidak ada gunakan name
+    // Simpan data user ke UserSession
+    // Prioritas: gunakan name jika ada, jika tidak gunakan email
     UserSession().setUser(
       email: email,
-      name: name,
+      name: name.isNotEmpty ? name : null,
     );
 
     AppRoutes.navigateTo(context, AppRoutes.home);
@@ -69,7 +93,7 @@ class _SignUpPageState extends State<SignUpPage> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          'Account created successfully!',
+          'Account created successfully! Welcome ${name}!',
           style: GoogleFonts.montserrat(),
         ),
       ),
