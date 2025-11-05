@@ -14,12 +14,14 @@ Nama  : Susan Jong
 
 NIM   : 231401014
 
-Lab   : Lab asli saya (3) tetapi pindah ke lab (1)
+Lab   : Lab asli saya (3) tapi pindah ke lab (1)
 
 Matkul: Praktikum Pemrograman Mobile
 
+Aslab: Ko Frederick (Lab 1) dan Bang Rivaldo (Lab 3) 
 
-## (## Features)
+
+## (Features)
 
 1. Answer Tracking: Keeps track of correct, incorrect, unanswered, and doubtful answers.
 
@@ -29,7 +31,7 @@ Matkul: Praktikum Pemrograman Mobile
 
 4. Countdown Timer: Displays the remaining time to complete the quiz, helping users manage their time effectively.
 
-5. Doubt Marking: Allows users to mark questions they are unsure about for easy review.
+5. oubt Marking: Allows users to mark questions they are unsure about for easy review.
 
 6. Result Sharing: Provides a simple, shareable summary of results that can be screenshotted to show overall performance.
 
