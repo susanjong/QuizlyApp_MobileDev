@@ -41,7 +41,7 @@ Aslab: Ko Frederick (Lab 1) dan Bang Rivaldo (Lab 3)
 
 • Language: Dart
 
-• State management: Provider (or your chosen solution)
+• State management: Provider 
 
 • IDE: Android Studio / Visual Studio Code
 
@@ -83,7 +83,6 @@ If it’s not there, you can manually create a new folder and place your project
 
 Wait for Android Studio to finish indexing the project and detecting Flutter plugins
 
-
 3. Install Dependencies
 
 In Android Studio’s terminal (or any terminal in the project directory), run:
@@ -105,6 +104,7 @@ Verify that the device is detected:
 -> adb devices
 
 5. Run the Application
+   
 
 🔹From Android Studio:
 
@@ -115,40 +115,6 @@ Click the Run ▶ button
 Or use the command line:
 
 -> Flutter run
-
-🔹From VS Code
-
-Open the project folder:
-
-File → Open Folder → select QuizlyApp
-
-Press Ctrl + Shift + P, then choose:
-
-Flutter: Select Device
-
-Select the available device or emulator.
-
-Run the application on terminal VSCode:
-
--> flutter run
-
-Or press F5 to run the app directly from VS Code.
-
-The app will build and launch automatically.
-
-6. Use Hot Reload / Hot Restart
-
-Hot Reload: Instantly update UI after saving code changes (click ⚡ in Android Studio or press r in the terminal)
-
-Hot Restart: Restart the app without a full rebuild (press R in the terminal)
-
-7. Verify Flutter Environment
-
-Check your setup on terminal with:
-
--> flutter doctor
-
-If any issues appear, follow the suggestions shown in the output before rerunning the project.
 
 ✅ Tip:
 For a clean rebuild, you can run:
@@ -176,40 +142,76 @@ Watch the Quizly App in action:
 
 ## Project Structure 
 lib/
+
 ├── main.dart
+
 ├── data/
+
      └── quiz_questions.dart
 ├── models/
+
      └── education_categories.dart
+     
      └── programming_challenge.dart
+     
      └── question_model.dart
+     
      └── quiz_result.dart 
+     
      └── user_models.dart
+     
      └── user_session.dart
+     
 └── routes/
+
     └── app_routes.dart
+    
 ├── screens/
+
 │    ├── forgot_password.dart
+
 │    ├── homepage.dart
+
 │    ├── login.dart
+
 │    ├── quiz_review_screen.dart
+
 │    ├── reset_password.dart
+
 │    ├── quiz_screen.dart
+
 │    ├── result_screen.dart
+
      ├── signup.dart
+     
      └── splashscreen.dart
+     
 ├── widgets/
+
     ├── quiz/
+    
 │    ├── answer_option_list.dart
+
 │    └── doubt_checkbox.dart
+
 │    └── question_card.dart
+
 │    └── question-number_bar.dart
+
 │    └── quiz_bottom_bar.dart
+
 │    └── quiz_header.dart
+
 ├── category_card.dart
+
 ├── daily_challenge_card.dart
+
 ├── darkmode_theme.dart
+
 ├── days_indicator.dart
+
+├── main
+
 ├── gradient_background.dart
 ├── navbar_widget.dart
 ├── programming_card.dart
