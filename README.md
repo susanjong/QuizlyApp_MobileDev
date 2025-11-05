@@ -31,7 +31,7 @@ Aslab: Ko Frederick (Lab 1) dan Bang Rivaldo (Lab 3)
 
 4. Countdown Timer: Displays the remaining time to complete the quiz, helping users manage their time effectively.
 
-5. oubt Marking: Allows users to mark questions they are unsure about for easy review.
+5. Doubt Marking: Allows users to mark questions they are unsure about for easy review.
 
 6. Result Sharing: Provides a simple, shareable summary of results that can be screenshotted to show overall performance.
 
