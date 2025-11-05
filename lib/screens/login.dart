@@ -28,10 +28,25 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _handleLogin() {
-    String email = _emailController.text;
+    String email = _emailController.text.trim();
     String password = _passwordController.text;
 
-    //Untuk menyimppan user session
+    // Validasi email wajib diisi
+    if (email.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Email harus diisi!',
+            style: GoogleFonts.montserrat(fontWeight: FontWeight.w500),
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    //Untuk menyimpan user session
+    // Simpan email, name akan di-extract dari email di UserSession
     UserSession().setUser(email: email);
 
     AppRoutes.navigateTo(context, AppRoutes.home);
